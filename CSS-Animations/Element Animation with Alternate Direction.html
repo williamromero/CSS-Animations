@@ -1,0 +1,30 @@
+<html>
+  <title> Alternate animation </title>  
+  <head>
+  <style>
+    div {
+      background-color: red;
+      height: 20px;
+      position: relative;
+      width: 100px;
+      /*animation-direction: alternate-reverse;
+      animation-duration: 2s;
+      animation-name: example;
+      animation-timing-function: ease-out;
+      animation-iteration-count: infinite;*/
+      animation: example 2s ease-out infinite alternate;
+    }
+    @keyframes example {
+        0%   {background-color:red; left:0px; top:0px;}
+        20%   {background-color:yellow; left:20px; top:-30px;}    
+        40%  {background-color:red; left:40px; top:0px;}
+        60%   {background-color:yellow; left:60px; top:-30px;}
+        85%   {background-color:red; left:80px; top:0px;}
+        100%  {background-color:yellow; left:100px; top:-30px; }   
+    }  
+  </style>
+  </head>
+<body>
+  <div> Test element. </div>
+</body>
+</html>
