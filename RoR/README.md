@@ -40,4 +40,6 @@ FIRST TIME RUNNING
 	- ls -a
 	- rails server
 
-
+- [x] Finish my changes
+- [ ] Push my commits to GitHub
+- [ ] Open a pull request
