@@ -40,4 +40,4 @@ FIRST TIME RUNNING
 	- ls -a
 	- rails server
 
-FIRST TIME RUNNING
+
