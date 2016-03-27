@@ -34,9 +34,10 @@ Arquitectura MVC
 	- VISTA: Es la parte en la que se presentan los recursos de la aplicación.
 
 FIRST TIME RUNNING
-	1. rails new musicapp
-	2. cd musicapp
-	3. ls -a
-	4. rails server
+
+	- rails new musicapp
+	- cd musicapp
+	- ls -a
+	- rails server
 
 FIRST TIME RUNNING
