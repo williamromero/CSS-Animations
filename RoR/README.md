@@ -38,3 +38,5 @@ FIRST TIME RUNNING
 	2. cd musicapp
 	3. ls -a
 	4. rails server
+
+FIRST TIME RUNNING
