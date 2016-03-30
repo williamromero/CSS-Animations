@@ -1,4 +1,4 @@
-CURSO GO
+CURSO GO:
 
 	Para instalar Go:
 		- brew install go
