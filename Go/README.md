@@ -200,4 +200,72 @@ ESTRUCTURA DE UN PROGRAMA EN GO:
 	
 	}
 	
+COMANDOS: 
+		- go build --> compila el programa y genera los ejecutables 
+		- go run --> compila y ademas ejecuta el programa
+		- 
+		El compilador toma cada una de las lineas y si uno quiere imprimir otra cosa en el mismo archivo, solo lee las lineas 		que se agregaron posteriormente.
+
+		- Crear código:
+		
+		package main
+		import "fmt"
+		func main () {
+		        fmt.Println("Ejemplo-> go build ejemplos")
+		}
 	
+		- Darle un go run file.go
+		
+		Resultado de Consola: "Ejemplo-> go build ejemplos"
+		
+		- go build file.go // Esto meterá en caché las lineas que hay de programación
+		
+		package main
+		import "fmt"
+		func main () {
+		        fmt.Println("Ejemplo-> go build ejemplos")
+			fmt.Println("Segunda lineas")
+		}
+
+		- Darle go run file.go  // ya solo leerá la última instrucción añadida y eso hará más rápida la respuesta.
+		[Nota] Build: compila todo lo nuevo en el script (.go) (de hecho lo relee todo, y para no demorar crea una cache de lo builds anteriores)
+
+	ESTRUCTURA DE ITERACIÓN
+
+	package main
+	import "fmt"
+	func main() {
+		alumnos := 1
+		for alumnos <= 3 {
+		fmt.Println(alumnos)
+		alumnos = alumnos + 1
+		}
+		for calificaciones := 7; calificaciones <= 9; calificaciones++ { 
+		fmt.Println(calificaciones)
+		}
+	}
+	
+	
+WEBSERVER
+	package main
+	
+	import (
+	"fmt"
+	"log"           // Libreria para sacar mensajes
+	"net/http"      // Libreria para manejar peticiones
+	)
+	
+	func main(){ // función main
+	http.HandleFunc("/", handler)
+	log.Fatal(http.ListenAndServe("localhost:8000", nil)) // uso de la libreria log y hay problema. tambien indica que nuestro localhost será esa.
+	}
+	
+	func handler(w http.ResponseWriter, r *http.Request){ // Envía y recibe peticiones
+	        fmt.Fprintf(w, "URL.Path = %q\n", r.URL.Path)
+	}
+	
+	// func handler (w http.ResponseWriter, r *http.ReponseWriter)
+	// Es la función que manejará las peticiones de entrada y de salida.
+
+
+
