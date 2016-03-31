@@ -367,3 +367,99 @@ RANGE
 	}
 	
 	//algo := map[string]string{"a":auto, "b":bebé}
+
+
+STRUCTS
+- ESTRUCTURA DE GO QUE TE PERMITE GUARDAR PROPIEDADES DE UN TIPO DE DATOS
+	// Ejercicios:
+	// Declarar un struct para mantener info. de un usuario (nombre, dirección, 
+	// edad)
+	// Crea un valor y lo vamos a inicializar con valores
+	// Mostrar cada campo
+
+	package main
+	import "fmt"
+	// usuario representa un usuario en el sistema
+
+	type usuario struct {
+		nombre string
+		dirección string
+		edad init
+	}
+
+	// punto de entrada de nuestra app
+	func main(){
+		// Declrar la variable ususario y la iniciamos usando un struct
+		vero := usuario {
+			nombre: "Verónica",
+			direccion = "Calle 12",
+			edad = 38,
+		}
+	}
+
+	// Mostrar los valores de cada campo
+
+	fmt.Println("Nombre", vero.nombre)
+	fmt.Println("Dirección", vero.direccion)
+	fmt.Println("Age", vero.edad)
+
+	// Declarar otro struct anano
+
+	nicole := struct {
+		nombre string
+		direccion string
+		edad init
+	} {
+
+	nombre: "William",
+	direccion: "Calle 13",
+	edad: "22" 
+	}
+
+	// Imprimir datos de Nicole
+
+	fmt.Println("Nombre", nicole.nombre)
+	fmt.Println("Dirección", nicole.direccion)
+	fmt.Println("Edad", nicole.edad)
+
+
+METODOS
+
+// Declarar un struct que representa a un jugador de soccer (nombre, goles, 
+// partidos)
+// Declarar un método que calcule el promedio de goles de un jugador
+// formula: partido/goles
+
+// Declarar un slice que inicialice un slice con varios jugadores.
+// Iterar sobre el slice mostrando los jugadores y su promedio de lanzamiento/goles
+
+
+package main
+import "fmt"
+// jugador representa una persona en el juego
+type jugador struct {
+	nombre string
+	goles int
+	partidos int
+}
+
+// Promedio de Goles
+
+	func (j *jugador) average()float64{
+	return float64(j.partidos) / float64(j.goles)
+	}
+
+	func main(){
+	jugadores := []jugador {
+		{"carlos", 20, 60}
+		{"fernando", 17, 30}
+		{"alonso", 34, 60}
+	}
+}
+
+INTERFACES
+
+// Declarar un interface llamada speaker con un método llamado speak
+// Declarar un struct llamado ingles que represente a una persona que hable inglés
+// Declarar un struct llamado chino que represente a una persona que hable chino.
+// Implementar la interface speaker para cada struct usando un valor y strings: "Hello World" y "a23452634"
