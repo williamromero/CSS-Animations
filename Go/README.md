@@ -328,24 +328,42 @@ MAPS - RELACIÓN SINTÁCTICA EN GO (Como hashes)
 // Declarar y hacer un mapa de valores enteros con un string como llave
 // Llenar el mapa con 5 valores e iterar sobre el mapa para mostrar los pares llave/valor
 
-package main
-import "fmt"
-
-// Main es la entrada de nuestro programa
-func main() {
-	// Declarar y hacer el mapa
-	departamentos := make(map[string]int)
-	// Inicializar datos en el mapa
-	departamentos["Devs"] = 25
-	departamentos["Marketing"] = 50
-	departamentos["Ejecutivos"] = 4
-	departamentos["Ventas"] = 60
-	departamentos["Mantimiento"] = 8
-
-	// Desplegar por medio de iteracion el valor de cada par llave/valor
-	for key, value := range departamentos {
-		fmt.Printf("Depts: %s Personas %d\n", key, value)
+	package main
+	import "fmt"
+	
+	// Main es la entrada de nuestro programa
+	func main() {
+		// Declarar y hacer el mapa
+		departamentos := make(map[string]int)
+		// Inicializar datos en el mapa
+		departamentos["Devs"] = 25
+		departamentos["Marketing"] = 50
+		departamentos["Ejecutivos"] = 4
+		departamentos["Ventas"] = 60
+		departamentos["Mantimiento"] = 8
+	
+		// Desplegar por medio de iteracion el valor de cada par llave/valor
+		for key, value := range departamentos {
+			fmt.Printf("Depts: %s Personas %d\n", key, value)
+		}
 	}
-}
 
 RANGE 
+	
+	package main
+	import "fmt"
+	func main(){
+		numeros := []int{2,4,6}
+		suma := 0
+		for _, numero := range numeros {
+			suma += numeros
+		}
+		fmt.Println("suma:" suma)
+	
+		for i, numero := range numeros {
+			if numero == 3
+			fmt.Println("index:", i)
+		}
+	}
+	
+	//algo := map[string]string{"a":auto, "b":bebé}
