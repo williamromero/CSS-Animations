@@ -1,0 +1,15 @@
+<html>
+<head>
+  <style>
+    .block { background-color: red; height: 100px; width: 20%; }
+    .msg { background-color: blue; border-radius: 5px; height: 50px; left: calc(90%); opacity: 0; position: relative; transition: 0.5s ease; widht: 100px;}
+    .block:hover > .msg { opacity: 1; transition: 0.5s ease;}
+    .msg:after { content: " "; border-left: 10px solid blue; border-bottom: 10px solid transparent; border-right: 10px solid transparent; display: block; left: calc(10%); position: absolute; top: calc(100%); }  
+  </style>
+</head>
+<body>
+  <div class="block">
+    <div class="msg"></div>
+  </div>
+</body>
+</html>
