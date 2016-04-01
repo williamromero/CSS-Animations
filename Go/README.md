@@ -463,3 +463,59 @@ INTERFACES
 // Declarar un struct llamado ingles que represente a una persona que hable inglés
 // Declarar un struct llamado chino que represente a una persona que hable chino.
 // Implementar la interface speaker para cada struct usando un valor y strings: "Hello World" y "a23452634"
+
+
+Wg = Puerto para Wait Group
+//wg (wait group) se usa para esperar que el programa termine
+
+CODE: runtime.GOMAXPROCS(1) //asignar número de procesadores
+
+Los threads te permiten realizar varias tareas de manera simultánea. La abstracción en Go son las goroutines.
+
+// CHANELS (CANALES)
+
+// Escribir un problema que usa un buffered channel para mantener un buffer de 4 strings
+// En main, mandar los strings 'A', 'B', 'C' y 'D' al channel.
+// Crear 20 gorutines
+
+package main
+import (
+"fmt"
+"sync"
+)
+
+const (
+	goroutines = 20
+	capacidad = 4
+)
+// wg se usa para esperar que el programa termine
+var wg sync.WaitGroup
+// recursos en un buffered channel para mejorar los strings
+var recursos = make (chan string, capacidad)
+
+func main(){
+	// Agregar el número de goroutnes al waitgroup
+	wg.Add(goroutines)
+	// Lanzar las gourutines necesarias para manejar el trabajo.
+	// Asegurarnos de poner la llamada para saber que las goroutines terminaron
+	for gr := 1; gr <= goroutines; gr++{
+		go func(gr int){
+			worker(gr)
+			wg.Done()
+		}(gr)
+
+	}
+	for s := 'A'; s < 'A'+capacidad;
+}
+
+// Lanzamos worker como un goroutine que procesa el trabajo del buffered channel
+
+func worker(worker int){
+	// Recibir un string del channel
+	valor := <-recursos
+
+	// Imprimir el valor
+	fmt.Printf("Worker: %d: %s\n", worker, valor)
+
+	/
+}
