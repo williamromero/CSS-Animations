@@ -59,5 +59,16 @@
 
 # NÚMEROS	-> Los números son objetos. Y como tal, poseen sus métodos.
 
+	EJEMPLOS
+
+		+ 8.next 	=> 9
+		+ 8.pred 	=> 8
+		+ 8.zero?	=> false
+		+ 8.odd? 	=> false
+		+ 8.even? 	=> true
+
+# NOTACIÓN
+	- Nombres de métodos o signos que simbolizan una acción.
+
 	
 
