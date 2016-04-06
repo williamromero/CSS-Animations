@@ -1,0 +1,3 @@
+# OPERACIONES ARITMÉTICAS
+
+puts 9.zero?

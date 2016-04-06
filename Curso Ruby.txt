@@ -1,0 +1,63 @@
+# PUTS keyboard para imprimir texto.
+	
+	puts "1. hola alumnos de platzi"
+	puts "2. hola!"
+	puts "3. yay"
+
+# ERRORS -> Si se invoca a un KEYBOARD ó METHOD saltará un alert.
+# Buscar errores en la documentación.
+
+# KEYWORDS 	-> Palabras reservadas por el lenguaje.
+
+# VARIABLE	-> Es un objeto en el que se depositará información.
+#			-> camelCase -> No reconoce nombres de variable formateados en camel case.
+# 			-> No hace falta declarar el tipo de la variable
+
+	nombre_del_curso = "Curso Ruby"
+
+# INTERPOLACIÓN -> Insertar el valor de una variable dentro de un método de impresión.
+
+	puts "Hola #{nombre}! Bienvenido al #{nombre_del_curso}"	
+
+# METHOD 	-> Son estructuras que se utilizan para realizar instrucciones que realicen
+#			   tareas que pueden repetirse o devolver un resultado de acuerdo a otro 
+#			   recibido.
+#			-> No soportan camel case y unidos por "_".
+
+	def welcome
+		puts "Hola #{nombre}! Bienvenido al #{nombre_del_curso}"
+	end 
+	# Como mandar a llamar a la función en Ruby
+	# welcome
+
+	welcome 
+
+# REFACTORIZACIÓN -> Optimización del código para lograr mejores resultados.
+
+#EJEMPLO NO. 01
+
+	# CREAR PROGRAMA PARA CONVERTIR DÓLARES A MONEDA LOCAL
+
+	# def namefunction (local variable)
+	# Se puede predefinir el valor del argumento-variable local para no tener que enviarlo
+	# al momento de llamar al método.
+	# puts dollar_to_currency(200) -> Sin error en consola.
+
+
+	def dollar_to_currency(dollars,tipo_cambio=7.80)
+		return dollars * tipo_cambio
+	end
+
+	dol_convert = 200
+
+	puts dollar_to_currency(dol_convert, 10)
+	# Si se predefine el valor del argumento en el método, puede no otorgarselé un valor al llamar la función.
+	puts dollar_to_currency(dol_convert)
+
+# OPERACIONES ARITMÉTICAS	-> Se puede realizar cualquier operación con los signos
+							   ( + , - , * , /)
+
+# NÚMEROS	-> Los números son objetos. Y como tal, poseen sus métodos.
+
+	
+
