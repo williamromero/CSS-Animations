@@ -70,5 +70,132 @@
 # NOTACIÓN
 	- Nombres de métodos o signos que simbolizan una acción.
 
-	
+# TIPOS DE NÚMEROS: FLOAT, INTEGER, FIXNUM
 
+	Para manejar los números float, es necesario utilizar los decimales de los números a
+	operar.
+	
+	puts 17.77.class
+	puts (9.0/2.0).class
+	puts 9/2
+	
+	puts (9.0/2.0).floor 		# Reduce decimales hacia el número del que proviene.
+	puts (9.0/2.0).ceil  		# Acerca el número al que se le acerca sin decimales.
+	puts (9.0/2.0).next_float 	# Acerca al número decimal siguiente.
+	puts (9.0/2.0).real?
+	puts (9.0/2.0).to_i		# To integer
+	
+	puts (10 + 20) * (10 + 23)	# Tabla de precedencia ejecutará las operaciones de
+					# con el orden de las operaciones matemáticas.
+					   
+	
+	Operaciones de valores con strings.
+	
+	puts "hola"+" mundo"
+	puts "¡hola mundo! " * 10
+	
+	
+	# EJEMPLO - Solicite al cliente el valor a cambiar:
+	
+	puts "Introduzca el valor que desea cambiar:"
+	dolares = gets.to_f	#.to_f -> Convierte el valor recibido a float.
+
+	puts "Monto del tipo de cambio"
+	cambio = gets.to_f
+
+	def dollar_to_currency(dollars,tipo_cambio)
+        	return dollars * tipo_cambio
+	end
+
+	puts dollar_to_currency(dolares, cambio).floor
+
+# OPERADORES LÓGICOS
+
+	-> Se utilizan para realizar tareas de comparación e iteración.
+	
+		edad = 23
+		mayor_edad = 18
+	
+		# puts (edad == mayor_edad)
+		# puts (edad >= mayor_edad)
+
+		# puts "mayor de edad" == "mayor de EDAD"
+		# puts "joven" == "joven"
+		# puts "joven" != "joveN"	
+	
+	
+---------------------------------------------------------------------	
+	
+		puts "Ingresa tu edad:"
+		edad = gets.to_i
+		mayor_edad = 18
+
+		if edad > mayor_edad
+		        puts "Eres mayor de edad, puedes entrar"
+		elsif edad < 30
+		        puts "Tienes menos de 30"
+		else
+		        puts "Eres menor de edad, no puedes entrar"
+		end
+		
+		# ESTRUCTURA AND
+		
+		if edad > 13 && edad < 18
+		        puts "Eres un adolecente"
+		end
+		
+		# ESTRUCTURA OR
+		
+		if (edad == 15) || (edad == 16)
+		        puts "yay, felicidades princesa... LOL"
+		end
+
+# LOOPS
+
+	age = gets.to_i
+	
+	if age >= 0 && age <=2
+		puts "Bebé"
+	elsif age >= 3 && age <= 12
+		puts "Niño"
+	elsif age >= 13 && age <=17
+		puts "Adolescente"
+	elsif age <= 60
+		puts "Adulto"
+	else
+		puts "Anciano"
+	end	
+	
+	
+	case age
+	when 0..2		# Es lo mismo que 0,1,2
+		puts "Bebe"
+	when 3..12
+		puts "Niño"
+	when 13..17
+		puts "Adolescente"
+	when 18..60
+		puts "Adulto"
+	else
+		puts "Anciano"
+	end
+	
+	
+	def clasificador(age)
+		case age
+		when 0..2
+			puts "RFC = Bebe"
+		when 3..12
+			puts "RFC = Niño"
+		when 13..17
+			puts "RFC = Adolescente"
+		when 18..60
+			puts "RFC = Adulto"
+		when 61..100
+			puts "RFC = Anciano"
+		end
+	end
+	
+	puts "Ingrese su edad: "
+	edad = gets.to_i
+	puts clasificador(edad)
