@@ -199,3 +199,56 @@
 	puts "Ingrese su edad: "
 	edad = gets.to_i
 	puts clasificador(edad)
+
+# WHILE - Elementos de control de flujo.
+
+	x = 0
+	numero = 5
+	
+	while x < 5
+		puts "Hola estoy en la posición No. #{x}"
+		x += 1
+	end
+	puts "Fin"
+
+# UNTIL - No necesita la variable de referencia, sino que utiliza la misma
+# variable de incremento para saber cuantas veces tiene que repetirse.
+
+	x = 0 
+	until x == 5
+		puts "Hola estoy en until #{x}"
+		x += 1
+	end
+	puts "Fin"
+
+# CYCLE LOOP - No olvidar finalizar el ciclo.
+x = 0
+loop do 
+	puts "Hola, estoy dentro del loop #{x}"
+	x += 1
+	break if x == 5
+end
+puts "Fin"
+
+
+# FOR CYCLE - No es necesario declarar la variable de referencia.
+
+for x in (0..4)
+	puts "Hola estoy en el for #{x}"
+end
+
+# CADENAS - Las cadenas también son objetos, por lo cual tiene métodos.
+	msg = "ruby es divertido\n"
+	puts msg.capitalize
+	puts msg.downcase
+	puts msg.swapcase
+
+	x = "alumnos de Platzi".insert(0,"Hola ")
+	puts x
+	puts x.reverse
+
+
+	# Para substituir caracteres de strings
+	bad_string = "Ruby es divretido"
+	puts "Ej. "+bad_string
+	puts "Res. "+bad_string.gsub('divretido', 'divertido')
