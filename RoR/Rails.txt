@@ -34,4 +34,4 @@ Proceso de Desarrollo:
 Referencias: 
 1. http://www.sectornueve.com/programacion/ingenieria-de-software/mvc-para-dummies/
 2. http://www.webwindowslinux.com/2013/05/explicando-la-arquitectura-aspnet-mvc.html
-3. https://gist.github.com/Elicia/8473536 // MVC Expliación
+3. https://gist.github.com/Elicia/8473536 //-> MVC Expliación
