@@ -1,0 +1,19 @@
+1. First, we going to create a symlink so open the terminal:
+
+  ln -s "/Applications/Sublime Text 2.app/Contents/SharedSupport/bin/subl" /usr/local/bin/subl
+  ln -s "/Applications/Sublime Text.app/Contents/SharedSupport/bin/sublime" /usr/local/bin/sublime
+
+2. Close/Open the terminal and try to open a folder:
+
+  cd Rails
+    cd mail
+      subl *
+      
+3. This is it!
+
+
+Reference:
+  - http://stackoverflow.com/questions/26931544/subl-command-not-working-properly
+  - http://www.bdat.net/documentos/cursos/ar01s15.html
+
+  
