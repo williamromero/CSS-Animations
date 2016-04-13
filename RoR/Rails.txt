@@ -1,0 +1,37 @@
+MODELO VISTA CONTROLADOR
+Ruby on Rails
+
+Cada aplicación contiene en sí, una carpeta llamada "app" en la que se
+encuentran los folders "controllers", "models" y "views". Esto debido a que
+responde a la lógica MVC (aplicación de estructura).
+P
+
+	- Modelo: Está formado por clases. Cada clase es un modelo y cada modelo, 
+			 representa una tabla en la DB. Por lo tanto, es el encargado de trabajar con la lógica de la base de datos.
+			 Por otra parte, los modelos son "objetos" que se crean para la aplicación web.
+			 Los modelos son la forma como se encapsulara la informacion, es decir es el tipo de informacion que finalmente vera el usuario. 
+
+	- Vista: Es la representación final de una petición. (HTML, ERB, JS, CSS) Es decir,
+			 la forma en la que se presentará la información.
+			 Asimismo, es como cuando en un archivo PHP utilizamos diferentes plantillas HTML para desplegar lo que se busca en la DB con scripts de PHP y MySQL. Por lo tanto, las vistas son las que despliegan las funciones que se requieren al explorador.
+
+	- Controlador: Es el encargado de la lógica de la petición. Es un puente entre la 
+			 Vista y el modelo. Cada controlador, será una clase con métodos y por cada método habrá una vista que representará la versión procesada de ese método.
+			 El controlador, por lo tanto se traduce en los archivos que operan acciones y scripts, haciendo llamadas a diferentes propiedades del objeto (las clases de la DB) y desplegandolas luego en la vista.
+
+			 Los controladores son como las operaciones que se van a realizar, es ahi donde se incluyen los metodos a los cuales se podran acceder por medio de una URL: Ejemplo de una url donde se llama a un controlador usuario y a su metodo login, con dos parametros: 
+			 http://misitioweb.com/usuario/login/{par... 
+
+			 Un controlador puede acceder y utilizar una clase Modelo para pasar datos a las vistas. 
+
+Proceso de Desarrollo:
+
+	Paso 01:
+		-> Cuando se visita la página: 0.0.0.0:3000/users se emite una solicitud al servidor, esta solicitud llega al archivo 'config/routes.db'.
+		En el
+
+
+Referencias: 
+0. http://www.sectornueve.com/programacion/ingenieria-de-software/mvc-para-dummies/
+1. http://www.webwindowslinux.com/2013/05/explicando-la-arquitectura-aspnet-mvc.html
+
