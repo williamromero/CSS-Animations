@@ -28,8 +28,52 @@ Proceso de Desarrollo:
 
 	Paso 01:
 		-> Cuando se visita la página: 0.0.0.0:3000/users se emite una solicitud al servidor, esta solicitud llega al archivo 'config/routes.db'.
-		En el
+		Este, es un archivo que se encuentra en la carpeta config y mapea en base a la URL.
+		El archivo "routes.rb", llamará a los recursos de acción del controlador Users o Posts en este ejemplo.
 
+			MiblogDemo::Application.routes.draw do
+				resources :posts
+				resources :users
+			end
+
+		Inicialmente, la envía a la acción index del controlador al que corresponde, en este caso 'users_controller' o 'posts_controller'.
+
+	Paso 02:
+		-> Cuando nos dirigmos a las acciones de los controladores, podemos evaluar las acciones predefinidas si utilizamos "Scaffold".
+
+		- def index
+			@users = User.all
+		end
+
+		En este caso, la acción index solicita al "modelo User" que le provea de la lista de todos los usuarios y luego deposita ese valor en la variable @users.
+
+	Paso 03:
+		-> Hace la petición al modelo, que con sus clases, maneja los modelos, que a sus vez son tablas.
+
+	Paso 04:
+		-> Esta petición es recibida por la clase User, la cual hereda de la biblioteca "ActiveRecord", la cual realiza una acción "Mapeo - Base Relacional" (Mapea una tabla). La clase del modelo debe de declararse en singular debido a que la tabla deberá de reconocerse en plural.
+
+			class User < ActiveRecord::Base
+				has_many :posts
+			end
+
+	Paso 05:
+
+		El modelo de User devuelve la lista de usuarios al controlador Users_Controller.
+
+	Paso 06:
+
+		El controlador deposita la lista en la variable @Users, la cual será impresa en la vista 'index', del controlador Users.
+
+	Paso 07:
+
+		La vista utiliza código embebido. Es decir que permite la incorporación del lenguaje Ruby, el cual traducirá a HTML.
+		Las variables que comienzan con @, son variables de instancia de un método que representa una vista. En ella se contienen los elementos desplegar en la vista.
+
+	Paso 08: 
+
+		El controlador, pasa código HTML a la vista.
+		
 
 Referencias: 
 1. http://www.sectornueve.com/programacion/ingenieria-de-software/mvc-para-dummies/
