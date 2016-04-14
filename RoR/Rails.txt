@@ -170,6 +170,42 @@ MIGRACIONES
  	Lo que quiere decir, es que cuando vayamos a "/tracks", esta ruta corresponde a una acción de nuestro controlador y que tiene un método index.
 
  	"LOS MODELOS SON LOS OBJETOS QUE CONTIENEN LA LÓGICA DE NUESTRA APLICACIÓN"
+ 	
+METODOS x CADA VISTA
+	-> index 		-> update
+	-> show			-> destroy
+	-> news			-> create
+ 	-> set
+
+
+ACTIVE RECORD -> Funciones de manipulación del modelo. Puede crear, editar, modificar tablas y campos.
+
+	-> rake db:migrate
+	   (guarda la configuración de la tabla)
+
+RUTAS:
+
+	resources :track -> Creador de rutas para nuestras acciones.
+	Para ver nuestras rutas, presionar:
+
+		rake routes
+
+	Los verbos de HTTP son GET, POST, PUT & PATCH.
+
+	Para ingresar a cada una de las vistas de las acciones, seguimos el patrón brindado por el comando rake routes.
+
+	Las acciones o métodos, tomarán el valor de todas las instancias del modelo para luego delegar a la vista la representación del contenido.
+
+MODELOS 
+
+	-> SHOW: Produce la acción show, del controlador 'tracks', que va al filtro "before_action" y pide a la función "set_track", llame a la método find del modelo que le antecede:
+
+		@track= Track.find(params[:id])
+
+	Y eso lo guarda en la variable de instancia @track.
+
+	Track-> El módelo y toda la abstracción del modelo. Esta hereda del ActiveRecord::Base 
+
 
 Referencias: 
 1. http://www.sectornueve.com/programacion/ingenieria-de-software/mvc-para-dummies/
