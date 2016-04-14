@@ -74,6 +74,102 @@ Proceso de Desarrollo:
 
 		El controlador, pasa código HTML a la vista.
 		
+¿QUÉ ES RoR?
+
+	- Es un framework creado en Ruby para desarrollar aplicaciones web.
+	- Convención sobre Configuración: Significa que el lenguaje toma decisiones respecto a ubicación de archivos, funciones y acciones que originalmente se tomarían sin los elementos de dicha librería.
+
+	Arquitectura de Rails - MVC
+
+	Modelo: Es la representación de la información con la cual el sistema opera. Componentes contables y descriptivos que conviven con métodos para su manipulación.
+
+	Vista:
+	
+	Controlador: Son los que se encargan de recibir las peticiones HTTP y de acuerdo a ello, realiza una acción para responder de forma adecuada.
+
+El usuario, interactua con el controlador mediante las rutas (las páginas), luego los manipuladores se encargan de realizar la conexión con los modelos. Una vez esto hecho y la conexión con los modelos, el controlador se encarga de obtener los datos para la vista.
+
+
+Al lío:
+
+1. Rails new musicapp
+2. Rails server (El contenido se correo en un servidor de aplicaciones llamado WebRick)
+
+
+Estructura de Aplicación:
+	- app => Se contiene todo el código relacionado a la lógica de la aplicación. Por convención, todo el contenido de controllers, models y views, se situan en esta carpeta.
+		-> Assets: son todos los archivos que se requieren. (imgs, js, css)
+		-> Controllers: Los controladores son los que se encargan de manejar todas las peticiones HTTP y la devolución de los modelos.
+		-> Helpers: Se coloca toda la estructura de código que vamos a reutilizar en todas las vistas.
+		-> Mailers: Se 
+		-> Modelos: Contienen toda la lógica de la app y el contenido de las clases de las bases de datos.
+	- bin =>
+	- config => 
+		-> Environments: Configuraciones que tenemos cuando estamos desarrollando. Estas son diferentes en prueba, en desarrollo y en producción. Por ejemplo, en método de desarrollo, las vistas se cargan en su totalidad, lo que no sucede en producción.
+		-> Initializers: Configuraciones que necesitamos que se carguen al iniciar el servidor. 
+			* database.yml => Es en donde se guarda la configuración de las bases de datos. Usuario, tipo de DB, contraseña, etc.
+			* routes.rb => Son las rutas que se generan por cada controlador. 
+			* secrets.yml => Es el archivo en el que se guardan todas las llaves de usuario.
+	- db =>	Es donde se guardan las configuraciones de los modelos.
+	- lib => Para librerías de terceros.
+	- log => Registro de todas las interacciones con nuestra aplicación.
+	- public => Se encuentran todos los archivos estáticos (404.html, 500.html) que no necesitan el procesamiento de Ruby.
+	- test => 
+	- tmp =>
+	- vendor =>
+			*gemfile = Es donde se especifican las gemas a funcionar en el proyecto. Se describen todas las dependencias de gemas a funcionar en el proyecto.
+				- sass: css precompilado
+				- coffee script: javascript precompilado al estilo Rails
+				- turbolinks: gema para crear aplicaciones que no tengan que recargarse completas sino solo los elementos a modificar. Es una alternativa parecida a Angular o React.
+
+SCAFFOLD 
+	
+	Es una función que servirá para crear una estructura de vistas, controladores para manejar los modelos.
+
+	rails generate scaffold track title:string album:string artist:string
+						 model_name		name_field:data_type
+
+MIGRACIONES
+
+	Las migraciones son las que le dicen a la DB que tablas y campos debe de generar tanto como cambiar tipo de datos de campos o eliminar una tabla o campo.
+
+	Models-> Nombre en singular
+	Tabla -> Nombre en plural
+
+	class CreateTracks < ActiveRecord::Migration
+	  def change
+	    create_table :tracks do |t|
+	      t.string :title
+	      t.string :album
+	      t.string :artist
+
+	      t.timestamps null: false // hora de creación
+	    end
+	  end
+	end
+
+	rake db:migrate
+
+	"LA FORMA DE INTERACTUAR CON LOS MODELOS, SON LAS RUTAS" por medio
+	de los controladores.
+
+	cd /config/routes.rb/
+
+	Rails.application.routes.draw do
+  	resources :tracks
+
+  	rake routes
+
+ EXPLICACIÓN MVC en RAILS
+
+ 	-> En routes, podemos ver las rutas que responden a las acciones del controlador.
+
+ 	Prefix	Verb	URI Pattern			Controller#Action
+ 	tracks  GET 	/tracks(.:format)	tracks#index
+
+ 	Lo que quiere decir, es que cuando vayamos a "/tracks", esta ruta corresponde a una acción de nuestro controlador y que tiene un método index.
+
+ 	"LOS MODELOS SON LOS OBJETOS QUE CONTIENEN LA LÓGICA DE NUESTRA APLICACIÓN"
 
 Referencias: 
 1. http://www.sectornueve.com/programacion/ingenieria-de-software/mvc-para-dummies/
