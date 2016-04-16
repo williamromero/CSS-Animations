@@ -206,6 +206,301 @@ MODELOS
 
 	Track-> El módelo y toda la abstracción del modelo. Esta hereda del ActiveRecord::Base 
 
+	FILTRO before_action :func
+
+	before_action :set_track, only: [:show, :edit, :update, :destroy]
+
+		def set_track
+	      @track = Track.find(params[:id])
+	     #Instance = Modelo.find(parametro[:id])
+	     #	Var
+	    end
+
+ACTIVE RECORD: Es un librería que nos permite conectar con la DB y realizar las peticiones. Los modelos heredan de esta clase para para poder responder a las peticiones del controlador.
+
+	Por ejemplo:
+
+		def index
+    		@tracks = Track.all
+  		  #Instance = Modelo.all (Del objeto Modelo, traer todo los objetos)
+  		   	#Var
+  		end
+
+RAILS CONSOLE
+
+	La consola de Rails, permite manipular los modelos que se han creado.
+
+	rails console
+	Model.connection -> Conecta con la DB.
+	Track -> Este comando mostrará los campos que hemos creado
+
+		Track.count
+		(0.2ms) SELECT COUNT(*) FROM "tracks"
+		=> 2
+
+		Track.first
+		Track Load (0.4ms)  SELECT  "tracks".* FROM "tracks"  ORDER BY "tracks"."id" ASC LIMIT 1
+		=> #<Track id: 1, title: "Work", album: "The best", artist: "Rihanna", created_at: "2016-04-14 06:24:11", updated_at: "2016-04-14 06:24:11">
+
+
+		Track.create title: 'Dejarte de amar', artist: 'Kalimba', album: 'Primero'
+		   (0.2ms)  begin transaction
+		  SQL (0.6ms)  INSERT INTO "tracks" ("title", "artist", "album", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)  [["title", "Dejarte de amar"], ["artist", "Kalimba"], ["album", "Primero"], ["created_at", "2016-04-16 01:54:41.597944"], ["updated_at", "2016-04-16 01:54:41.597944"]]
+		   (1.4ms)  commit transaction
+		 => #<Track id: 3, title: "Dejarte de amar", album: "Primero", artist: "Kalimba", created_at: "2016-04-16 01:54:41", updated_at: "2016-04-16 01:54:41"> 
+
+		 Track.where(artist:"Camila").count
+   		(0.3ms)  SELECT COUNT(*) FROM "tracks" WHERE "tracks"."artist" = ?  [["artist", "Camila"]]
+ 		=> 1 
+
+ INSTANCIA DE CLASE MODELO
+
+ 		cancion = Track.new
+ 			=> #<Track id: nil, title: nil, album: nil, artist: nil, created_at: nil, updated_at: nil>
+
+		 ancion.title = 'Five'
+		 	=> "Five" 
+
+		 cancion
+ 			=> #<Track id: nil, title: "Five", album: nil, artist: nil, created_at: nil, updated_at: nil> 
+
+ 		cancion.save
+
+		    (0.1ms)  begin transaction
+		  SQL (0.5ms)  INSERT INTO "tracks" ("title", "created_at", "updated_at") VALUES (?, ?, ?)  [["title", "Five"], ["created_at", "2016-04-16 02:41:06.876952"], ["updated_at", "2016-04-16 02:41:06.876952"]]
+		   (1.1ms)  commit transaction		
+
+		canciones = Track.all  // lista de todos los objetos del modelo Track
+
+		 Track Load (0.3ms)  SELECT "tracks".* FROM "tracks"
+ 			=> #<ActiveRecord::Relation [#<Track id: 1, title: "Work", album: "The best", artist: "Rihanna", created_at: "2016-04-14 06:24:11", updated_at: "2016-04-14 06:24:11">, #<Track id: 2, title: "Todo cambio", album: "Primer Album", artist: "Camila", created_at: "2016-04-15 23:12:15", updated_at: "2016-04-15 23:12:15">, #<Track id: 3, title: "Dejarte de amar", album: "Primero", artist: "Kalimba", created_at: "2016-04-16 01:54:41", updated_at: "2016-04-16 01:54:41">, #<Track id: 4, title: "Five", album: nil, artist: nil, created_at: "2016-04-16 02:41:06", updated_at: "2016-04-16 02:41:06">]> 
+
+ 		canciones[0]  //mediante índice
+
+ 			=> #<Track id: 1, title: "Work", album: "The best", artist: "Rihanna", created_at: "2016-04-14 06:24:11", updated_at: "2016-04-14 06:24:11">
+
+ 		cancion = canciones.last
+
+ 		 => #<Track id: 4, title: "Five", album: nil, artist: nil, created_at: "2016-04-16 02:41:06", updated_at: "2016-04-16 02:41:06"> 
+
+ 		cancion.album = 'Five'
+ 		cancion.artist = 'Maroon Five'
+ 		cancion.save
+
+ 		PARA AGREGAR CONTENIDO DE PRUEBA:
+
+ 		2.3.0 :033 >   10.times do
+		2.3.0 :034 >     Track.create title: 'Destiny', album: 'Destiny', artist: 'Stratovarius'
+		2.3.0 :035?>   end
+
+		PARA BUSCAR UN ELEMENTO:
+
+		Track.find 12
+
+			PARA BUSCAR TODOS LOS ELEMENTOS QUE CUMPLAN CONDICIÓN
+
+				cancion = Track.where title: 'Destiny' // apareceran los 10 registros creados anteriormente.
+
+				cancion.count => 10
+
+			PARA OBTENER LA PRIMERA COINCIDENCIA DE UNA BUSQUEDA CON CONDICION
+				Track.find_by title: 'Destiny' // Traerá solo la primera coincidencia
+
+
+			BORRAR ELEMENTOS:
+
+				canciones = Track.where artist: 'Stratovarius'
+				canciones.count
+				// canciones.destroy
+				canciones.destroy_all
+
+	"LOS ANTERIORES MÉTODOS SON LOS QUE ENCONTRAMOS EN EL CONTROLADOR PARA MANIPULAR LOS OBJETOS DE RUBY"
+
+RUTAS
+
+	rake routes // Toda la funcionalidad que queremos exponer nuestra aplicacion
+
+	Para manipular las rutas, acceder a:
+		-> /config/routes.rb
+
+		resources	:tracks  
+		// Este método crea automáticamente todos los recursos que podemos utilizar (edit, show, destroy).
+
+LAYOUTS
+
+	Son las vistas que se predefinen con el header y el footer y que tendrán que aparecer en cada una de las vistas de accion del controlador.
+
+HELPERS
+
+///////////////////////// CREACION DE ESTRUCTURAS SIN SCAFFOLD /////////////////////
+
+CREAR EL MODELO
+	Ir a app/models/
+		nano playlist.rb
+
+	Crear la clase del modelo:
+
+		#Hereda de la clase AR, para poder manipular las DB con los comandos internos
+		#Nombre de clase con Mayúscula
+		class Playlist < ActiveRecord::Base 
+
+		end
+
+
+	Ir a consola:
+
+		rails console
+			#Para probar si la tabla existe, claramente no porque no hemos migrado las tablas
+			Playlist.connection
+
+			Playlist
+			# => Playlist(Table doesn't exist)
+	
+	LAS MIGRACIONES SON VERSIONES DE NUESTRAS DB QUE PODEMOS IR CRECIENDO Y HACIENDO CAMBIOS
+	EN EL PRINCIPIO DE LA CREACIÓN.
+
+
+	Realizar migración para generar la tabla con ActiveRecord, Playlist
+
+		rails generate migration CreatePlaylists
+								 #CreatePluralModelName
+
+		# Esto genera el modelo ActiveRecord y una migración con su nombre.
+	    # invoke  active_record
+		# create    db/migrate/20160416073817_create_playlists.rb
+
+
+	rake db:migrate:status
+
+		database: /Users/williamromero/Desktop/Platzi/Rails/musicapp/db/development.sqlite3
+
+		 Status   Migration ID    Migration Name
+		--------------------------------------------------
+		   up     20160414060548  Create tracks
+		  down    20160416073817  Create playlists
+
+
+	IR AL MODELO PLAYLIST Y AGREGAR LOS CAMBIOS A UTILIZAR
+
+		1. Ir a config/db/migrate y buscar la migración de playlist
+		2. Luego definir los campos a utilizar:
+
+		class CreatePlaylists < ActiveRecord::Migration
+			  def change
+			    create_table :playlists do |t|
+			    	t.string :name
+			    	t.integer :number_of_votes
+			    end
+			  end
+		end
+
+	Recibimos el error de rake db:migrate y por ello vamos a rake db:migrate:status para ver que base de datos no ha sido migrada (actualizada y asignada a la db) para usarse como modelo.
+
+	rake db:migrate:status
+
+		database: /Users/williamromero/Desktop/Platzi/Rails/musicapp/db/development.sqlite3
+
+		 Status   Migration ID    Migration Name
+		--------------------------------------------------
+		   up     20160414060548  Create tracks
+		  down    20160416073817  Create playlists   # No está creada en la DB
+
+	Por ello vamos a consola y presionamos:
+
+		rake db:migrate
+
+			== 20160416073817 CreatePlaylists: migrating ==================================
+			-- create_table(:playlists)
+			   -> 0.0014s
+			== 20160416073817 CreatePlaylists: migrated (0.0015s) =========================
+
+
+	Luego vamos a rails console
+
+		Playlist.connection
+
+		2.3.0 :002 > Playlist
+		 => Playlist(id: integer, name: string, number_of_votes: integer) 
+
+		ActiveRecord crea en todos los modelos, el atributo id para poder realizar búsquedas sobre la tabla.
+
+
+CREAR EL CONTROLADOR
+
+	Vamos a config/routes.rb
+
+		Rails.application.routes.draw do
+  		resources :tracks  
+
+  		resources :name_of_table #Crea todos los recursos que queremos exponer vía URL
+  		#Esto creará una estructura REST para que nuestra aplicación pueda ser leída.
+
+					Rails.application.routes.draw do
+  					resources :playlists  		
+
+  		Para ver las rutas que crea resources de nuestro modelo, presionar: 
+
+  			rake routes
+
+		       Prefix Verb   URI Pattern                   Controller#Action
+		       tracks GET    /tracks(.:format)             tracks#index
+		              POST   /tracks(.:format)             tracks#create
+		    new_track GET    /tracks/new(.:format)         tracks#new
+		   edit_track GET    /tracks/:id/edit(.:format)    tracks#edit
+		        track GET    /tracks/:id(.:format)         tracks#show
+		              PATCH  /tracks/:id(.:format)         tracks#update
+		              PUT    /tracks/:id(.:format)         tracks#update
+		              DELETE /tracks/:id(.:format)         tracks#destroy
+		    playlists GET    /playlists(.:format)          playlists#index
+		              POST   /playlists(.:format)          playlists#create
+		 new_playlist GET    /playlists/new(.:format)      playlists#new
+		edit_playlist GET    /playlists/:id/edit(.:format) playlists#edit
+		     playlist GET    /playlists/:id(.:format)      playlists#show
+		              PATCH  /playlists/:id(.:format)      playlists#update
+		              PUT    /playlists/:id(.:format)      playlists#update
+		              DELETE /playlists/:id(.:format)      playlists#destroy  			
+
+
+		Si ya tenemos la ruta y el modelo, nos falta el controlador, por lo tanto hay que generarlo:
+
+		TAL COMO ACTIVE RECORD AYUDA AL SISTEMA A COMPRENDER QUE EL MODELO DEBE DE MANEJAR LA BASE DE DATOS, EL APPLICATION CONTROLLER AYUDA AL SISTEMA A COMPRENDER EL SISTEMA DE RUTAS PARA PODER SERVIR VISTAS DE ACUERDO A LAS NECESIDADES DEL CONTROLADOR
+
+		Vamos a app/controllers/
+		Creamos el archivo: playlists.rb
+
+			ó
+
+		rails generate controller playlists
+
+		#rails generate controller playlists >> Creará el controlador y las vistas y assets necesarios que están ya determinados en las rutas.
+
+			  Running via Spring preloader in process 3210
+		      create  app/controllers/playlists_controller.rb
+		      invoke  erb
+		      create    app/views/playlists
+		      invoke  test_unit
+		      create    test/controllers/playlists_controller_test.rb
+		      invoke  helper
+		      create    app/helpers/playlists_helper.rb
+		      invoke    test_unit
+		      invoke  assets
+		      invoke    coffee
+		      create      app/assets/javascripts/playlists.coffee
+		      invoke    scss
+		      create      app/assets/stylesheets/playlists.scss 
+
+		Vamos al controlador playlists
+			app/controllers/
+
+		Abrir el archivo playlists_controller.rb
+
+		Si vamos a la ruta /playlists/, veremos que tenemos el error de que la action "index" no fue encontrada en PlaylistsController, debido a que el mismo, está vacio.
+
+		Entonces copiamos lo que tiene el otro 
+
+
+
+
 
 Referencias: 
 1. http://www.sectornueve.com/programacion/ingenieria-de-software/mvc-para-dummies/
