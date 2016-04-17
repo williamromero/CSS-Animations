@@ -494,9 +494,124 @@ CREAR EL CONTROLADOR
 
 		Abrir el archivo playlists_controller.rb
 
-		Si vamos a la ruta /playlists/, veremos que tenemos el error de que la action "index" no fue encontrada en PlaylistsController, debido a que el mismo, está vacio.
+		Si vamos a la ruta /playlists/, veremos que tenemos el error de que la action "index" no fue encontrada en PlaylistsController, debido a que el mismo, no hace referencia a ningun método, y por lo tanto a ninguna vista ya que como vimos antes, en un controlador existen los métodos y por cada método existe una vista.
 
-		Entonces copiamos lo que tiene el otro 
+		Entonces creamos el evento index dentro del controlador Playlists
+
+		class PlaylistsController < ApplicationController
+			def index
+			end
+		end
+
+		Lo cual nos brindará otro error debido a que aunque el generador de controllers creó varios archivos y entre ellos, el folder de "Playlists", no creo los archivos esenciales que van dentro.
+
+		Por lo tanto hay que crear un archivo index, que será el que responderá a la accion index del controlador.
+
+		app/views/playlists   => crear archivo index.html.erb
+
+		La cual estará vacía pero ya no dará ningún error, porque la RUTA INDEX fue creada con:	"resources :playlists" en el archivo "config/routes.rb"  
+
+		Pero ahora, como ingresar un formulario:
+
+			<h1>Listado de listas de Reproducción</h1>
+			<table>
+				<thead>
+					<tr>
+						<th>Name</th>
+						<th>Number of Votes</th>
+					</tr>
+				</thead>
+				<tbody>
+
+				</tbody>
+			</table>
+
+		Pero para desplegar los datos, tenemos que solicitarle al controlador que conecte con el modelo para requerir el despliegue de su contenido.
+		Por lo tanto, vamos al controlador playlists
+
+			controllers/playlists_controller.rb
+
+
+			class PlaylistsController < ApplicationController
+
+				def index
+					@playlists = Playlist.all 
+				end
+
+			end
+
+		EL UTILIZAR LA ARROBA, NOS DICE QUE ES UNA INSTANCIA QUE ESTÁ VIVIENDO SOLO EN ESE MÉTODO.
+
+		Hecho esto, vamos a nuestra vista y para mostrarlo, realizamos una iteración de lo que el método index solicitó y guardó en la variable @playlists.
+
+			...
+				<tbody>
+					<% @playlists.each do |playlist| %>
+						<tr>
+							<td><%= playlist.name %></td>
+							<td><%= playlist.number_of_votes %></td>
+						</tr>
+					<% end %>
+				</tbody>
+			</table>
+			...
+
+		Luego, creamos contenido desde rails console:
+
+			Playlist.connection    #conectamos con el modelo
+			Playlist.create name:'Alternative', number_of_votes: '20'
+
+			   (0.1ms)  begin transaction
+  				SQL (0.6ms)  INSERT INTO "playlists" ("name", "number_of_votes") VALUES (?, ?)  [["name", "Alternative"], ["number_of_votes", 20]]
+   			   (1.6ms)  commit transaction
+   			    => #<Playlist id: 1, name: "Alternative", number_of_votes: 20> 
+
+   			Playlist.create name: 'Latin', number_of_votes: '50'
+
+				(0.1ms)  begin transaction
+				  SQL (2.1ms)  INSERT INTO "playlists" ("name", "number_of_votes") VALUES (?, ?)  [["name", "Latin"], ["number_of_votes", 50]]
+				(1.3ms)  commit transaction
+				 => #<Playlist id: 2, name: "Latin", number_of_votes: 50> 
+
+		Finalmente, si nos dirigimos a la vista de la acción index, veremos los datos desplegados ya en pantalla, mediante la variable de instancia que creamos en su método.
+
+		Ahora agregaremos la ruta SHOW, en la cual se muestra un único elemento.
+
+		controllers/playlists_controller.rb
+
+			class PlaylistsController < ApplicationController
+
+				def index
+					@playlists = Playlist.all 
+				end
+
+				def show
+					@playlists = Playlist.find(params[:id])
+				end
+			end
+
+
+		El método show, sabrá de donde tomar el parámetro de selección porque como se especificó en las rutas, la accion show responder a un parámetro ID.
+
+       Prefix Verb   URI Pattern                   Controller#Action
+     playlist GET    /playlists/:id(.:format)      playlists#show		
+
+     	Pero, como toda accion, necesita una vista, por lo tanto tendrémos que crear la vista SHOW:
+
+     	app/views/playlists/ => crear archivo show.html.erb
+
+    Y colocar un código así:
+
+     	<p>
+			<strong>Name: </strong>
+			<%= @playlist.name %>
+		</p>
+
+		<p>
+			<strong> Number of votes: </strong>
+			<%= @playlist.number_of_votes %>
+		</p>
+
 
 
 
