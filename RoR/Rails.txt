@@ -587,6 +587,7 @@ CREAR EL CONTROLADOR
 
 				def show
 					@playlists = Playlist.find(params[:id])
+					#@track = Track.find(params[:id])
 				end
 			end
 
@@ -605,6 +606,7 @@ CREAR EL CONTROLADOR
      	<p>
 			<strong>Name: </strong>
 			<%= @playlist.name %>
+			<%= @track.title %>			
 		</p>
 
 		<p>
@@ -612,7 +614,10 @@ CREAR EL CONTROLADOR
 			<%= @playlist.number_of_votes %>
 		</p>
 
+	Y finalmente, podemos ver el registro no.1 del modelo Playlist, en nuestra vista SHOW, de la acción show del controlador Playlists.
 
+
+	SI QUEREMOS DESPLEGAR UN OBJETO DE OTRO CONTROLADOR, LO INSTANCIAMOS EN LA ACCION Y LO REPLICAMOS EN LA VISTA.
 
 
 
