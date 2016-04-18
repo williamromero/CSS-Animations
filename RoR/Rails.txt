@@ -384,7 +384,8 @@ CREAR EL MODELO
 	
 	LAS MIGRACIONES SON VERSIONES DE NUESTRAS DB QUE PODEMOS IR CRECIENDO Y HACIENDO CAMBIOS
 	EN EL PRINCIPIO DE LA CREACIÓN.
-
+	
+	Salir de consola: Ctrl + D // Ctrl + R
 
 	Realizar migración para generar la tabla con ActiveRecord, Playlist
 
