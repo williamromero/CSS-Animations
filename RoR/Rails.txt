@@ -334,6 +334,32 @@ HELPERS
 
 ///////////////////////// CREACION DE ESTRUCTURAS SIN SCAFFOLD /////////////////////
 
+rails new app -d mysql
+
+mysql -u root -p
+CREATE DATABASE landingmailer;
+
+IR A config/database.yml
+
+		default: &default
+		  adapter: mysql2
+		  encoding: utf8
+		  pool: 5
+		  username: root
+		  password: Cocacola15
+		  socket: /tmp/mysql.sock
+
+		development:
+		  <<: *default
+		  database: landingmailer
+
+		# Warning: The database defined as "test" will be erased and
+		# re-generated from your development database when you run "rake".
+		# Do not set this db to the same as development or production.
+		test:
+		  <<: *default
+		  database: landingmailer
+
 CREAR EL MODELO
 	Ir a app/models/
 		nano playlist.rb
@@ -465,12 +491,12 @@ CREAR EL CONTROLADOR
 
 		TAL COMO ACTIVE RECORD AYUDA AL SISTEMA A COMPRENDER QUE EL MODELO DEBE DE MANEJAR LA BASE DE DATOS, EL APPLICATION CONTROLLER AYUDA AL SISTEMA A COMPRENDER EL SISTEMA DE RUTAS PARA PODER SERVIR VISTAS DE ACUERDO A LAS NECESIDADES DEL CONTROLADOR
 
-		Vamos a app/controllers/
-		Creamos el archivo: playlists.rb
+			Vamos a app/controllers/
+			Creamos el archivo: playlists.rb
 
-			ó
+				ó
 
-		rails generate controller playlists
+			rails generate controller playlists
 
 		#rails generate controller playlists >> Creará el controlador y las vistas y assets necesarios que están ya determinados en las rutas.
 
@@ -498,16 +524,16 @@ CREAR EL CONTROLADOR
 
 		Entonces creamos el evento index dentro del controlador Playlists
 
-		class PlaylistsController < ApplicationController
-			def index
+			class PlaylistsController < ApplicationController
+				def index
+				end
 			end
-		end
 
 		Lo cual nos brindará otro error debido a que aunque el generador de controllers creó varios archivos y entre ellos, el folder de "Playlists", no creo los archivos esenciales que van dentro.
 
 		Por lo tanto hay que crear un archivo index, que será el que responderá a la accion index del controlador.
 
-		app/views/playlists   => crear archivo index.html.erb
+			app/views/playlists   => crear archivo index.html.erb
 
 		La cual estará vacía pero ya no dará ningún error, porque la RUTA INDEX fue creada con:	"resources :playlists" en el archivo "config/routes.rb"  
 
@@ -618,6 +644,101 @@ CREAR EL CONTROLADOR
 
 
 	SI QUEREMOS DESPLEGAR UN OBJETO DE OTRO CONTROLADOR, LO INSTANCIAMOS EN LA ACCION Y LO REPLICAMOS EN LA VISTA.
+
+
+PARA CREAR UN CONTROLADOR NEW
+
+	app/controllers/
+
+		def new
+			@playlist = Playlist.new
+		end
+
+
+	El método NEW nos dará los elemento para un formulario de validación de modelos.
+	Para ello, creamos el archivo:
+
+		app/views/playlists/ => crear archivo new.html.erb
+
+	Luego, haciendo uso de los "helpers", Rails nos permite crear formularios con la siguiente sintáxis.
+
+		<%= form_for(@playlist) do |f| %>
+
+	Esta etiqueta, haciendo uso del helper form_for, nos permite requerir los valores de la variable de instancia @playlist, la cual fue creada en la acción "def new" del controlador. Luego, cada valor de contenido requerido, se deposita en la variable "f", la cual usaremos como comodín para imprimir las casillas en pantalla.
+
+	<%= form_for(@playlist) do |f| %>
+		<%= f.label :name %>
+		<%= f.text_field :name %>
+		<br/><br/>
+		<%= f.label :number_of_votes %>
+		<%= f.text_field :number_of_votes %>
+
+		<%=	f.submit %>
+	<% end %>
+
+	El helper label, siempre sabrá que desplegará la llave del atributo, el input el casillero para la información y el submit, desplegará el nombre de lo que guardamos.
+
+	Ahora, al presionar el botón, obtendremos un error que hace referencia a que la acción "create" no existe.
+
+		## The action 'create' could not be found for PlaylistsController
+
+	Esto sucede, porque no hemos creado en el controlador esta acción que actua en relación a la acción new. Así mismo, si pensamos, no encontrará la vista por lo que habrá que crearla.
+
+	# PERO SI VEMOS EL RAKE ROUTES DE ESTE MODELO, ESTE EVENTO NO TIENE VISTA POR LO QUE SEGUIREMOS RECIBIENDO EL ERROR. POR LO CUAL LA SIGUIENTE LINEA, NO ES VÁLIDA
+
+		######app/views/playlists/ => crear archivo create.html.erb######
+
+	Y vamos al archivo "playlists_controller.rb" y colocamos lo siguiente:
+
+		def create
+
+		end
+
+	Ahora ya encuentra su método y su vista no existirá, debido a que en rake routes, esa vista corresponde a la principal. Es decir, será como la vista siguiente al formulario en la cual se podrá crear el registro, al igual que update y destroy.
+
+	Ahora, cuando hemos recibido la lista de parámetros tenemos que ahondar en como recibirlos en el método create.
+
+	Ahora, en "create" veremos que necesitamos requerir los parámetros, y para ello, desde Rails 4, existe algo llamado "strongparams", que sirve para extraer los parametros que se necesitan guardar. Esto sabe cuales debe de descargar.
+
+	Para ello, crearemos un método privado, con el motivo de recibir allí los parámetros necesarios para que el evento CREATE guarde los datos.
+
+	def create
+		
+	end
+
+	private
+	
+		def playlist_params
+			params.require(:playlist).permit(:name, :number_of_votes)
+		end
+
+	Esto, limita que se reciban parámetros que no necesitamos o que quizás podamos tener escondidos.
+
+	Luego, vamos al método create para validar los parámetros. En este, guardaremos los datos con la función NEW, la cual hemos utilizado antes para desplegar. Es una función I/O por lo que podemos utilizarla para crear un nuevo registro y guardar también. Es decir, cuando lo utilizamos en "def new", es como si creara un nuevo registro pero como no se salva, se pierde. Ya cuando vamos al evento "create" y lo mandamos a llamar de nuevo, allí si se depositan los datos en el registro que creó "new" con los parámetros requeridos del método privado.
+
+	def create
+		@playlist = Playlist.new(playlist_params)
+		if @playlist.save
+			redirect_to @playlist
+		else
+			render :new
+		end
+	end 
+
+	Luego, cuando se han guardado ya, evaluamos el valor de la variable, si se pudo o no guardar y si, sí, redireccionaremos al evento SHOW. 
+
+	Sino, redireccionará la vista NEW de nuevo. 
+
+	VALIDACIÓN DE DATOS:
+
+	En este momento, si guardamos datos vacíos, los mismos se guardaran. Por ello, tenemos que ir al modelo para que esto no suceda y cuando se evalue si se guardan los datos, tire una bandera para que no lo haga.
+
+	class Playlist < ActiveRecord::Base
+		validates_presence_of :name, :number_of_votes
+	end
+
+	Esto evaluará si los campos están y sí no, no guardará y levantará la bandera para que el evento create haga de nuevo el render del formulario.
+
 
 
 
