@@ -19,66 +19,62 @@ El controlador, por lo tanto se traduce en los archivos que operan acciones y sc
 
 ###Proceso de Desarrollo:
 
-	**Paso 01:**
-		-> Cuando se visita la página: 0.0.0.0:3000/users se emite una solicitud al servidor, esta solicitud llega al archivo 'config/routes.db'.
-		Este, es un archivo que se encuentra en la carpeta config y mapea en base a la URL.
-		El archivo "routes.rb", llamará a los recursos de acción del controlador Users o Posts en este ejemplo.
+**Paso 01:**
+* Cuando se visita la página: **0.0.0.0:3000/users** se emite una solicitud al servidor, esta solicitud llega al archivo **"config/routes.db"**. Este, es un archivo que se encuentra en la carpeta config y mapea en base a la URL. El archivo **"routes.rb"**, llamará a los recursos de acción del controlador Users o Posts en este ejemplo.
+```
+	MiblogDemo::Application.routes.draw do
+		resources :posts
+		resources :users
+	end
+```
+* Inicialmente, la envía a la acción index del controlador al que corresponde, en este caso **'users_controller'** o **'posts_controller'**.
 
-			MiblogDemo::Application.routes.draw do
-				resources :posts
-				resources :users
-			end
+**Paso 02:**
+* Cuando nos dirigmos a las acciones de los controladores, podemos evaluar las acciones predefinidas si utilizamos **"Scaffold"**.
+```
+	def index
+		@users = User.all
+	end
+```
+* En este caso, la acción index solicita al **"modelo User"** que le provea de la lista de todos los usuarios y luego deposita ese valor en la variable @users.
 
-		Inicialmente, la envía a la acción index del controlador al que corresponde, en este caso 'users_controller' o 'posts_controller'.
+**Paso 03:**
+* Hace la petición al modelo, que con sus clases, maneja los modelos, que a sus vez son tablas.
 
-	Paso 02:
-		-> Cuando nos dirigmos a las acciones de los controladores, podemos evaluar las acciones predefinidas si utilizamos "Scaffold".
+**Paso 04:**
+* Esta petición es recibida por la clase User, la cual hereda de la biblioteca **"ActiveRecord"**, la cual realiza una acción **"Mapeo - Base Relacional"** (Mapea una tabla). La clase del modelo debe de declararse en singular debido a que la tabla deberá de reconocerse en plural.
+```
+	class User < ActiveRecord::Base
+		has_many :posts
+	end
+```
+**Paso 05:**
+* El modelo de User devuelve la lista de usuarios al controlador Users_Controller.
 
-		- def index
-			@users = User.all
-		end
+**Paso 06:**
 
-		En este caso, la acción index solicita al "modelo User" que le provea de la lista de todos los usuarios y luego deposita ese valor en la variable @users.
+* El controlador deposita la lista en la variable @Users, la cual será impresa en la vista 'index', del controlador Users.
 
-	Paso 03:
-		-> Hace la petición al modelo, que con sus clases, maneja los modelos, que a sus vez son tablas.
+**Paso 07:**
 
-	Paso 04:
-		-> Esta petición es recibida por la clase User, la cual hereda de la biblioteca "ActiveRecord", la cual realiza una acción "Mapeo - Base Relacional" (Mapea una tabla). La clase del modelo debe de declararse en singular debido a que la tabla deberá de reconocerse en plural.
+* La vista utiliza código embebido. Es decir que permite la incorporación del lenguaje Ruby, el cual traducirá a HTML. Las variables que comienzan con @, son variables de instancia de un método que representa una vista. En ella se contienen los elementos desplegar en la vista.
 
-			class User < ActiveRecord::Base
-				has_many :posts
-			end
+**Paso 08: **
 
-	Paso 05:
-
-		El modelo de User devuelve la lista de usuarios al controlador Users_Controller.
-
-	Paso 06:
-
-		El controlador deposita la lista en la variable @Users, la cual será impresa en la vista 'index', del controlador Users.
-
-	Paso 07:
-
-		La vista utiliza código embebido. Es decir que permite la incorporación del lenguaje Ruby, el cual traducirá a HTML.
-		Las variables que comienzan con @, son variables de instancia de un método que representa una vista. En ella se contienen los elementos desplegar en la vista.
-
-	Paso 08: 
-
-		El controlador, pasa código HTML a la vista.
+* El controlador, pasa código HTML a la vista.
 		
-¿QUÉ ES RoR?
+###¿QUÉ ES ROR?
 
-	- Es un framework creado en Ruby para desarrollar aplicaciones web.
-	- Convención sobre Configuración: Significa que el lenguaje toma decisiones respecto a ubicación de archivos, funciones y acciones que originalmente se tomarían sin los elementos de dicha librería.
+* Es un framework creado en Ruby para desarrollar aplicaciones web.
+* Convención sobre Configuración: Significa que el lenguaje toma decisiones respecto a ubicación de archivos, funciones y acciones que originalmente se tomarían sin los elementos de dicha librería.
 
-	Arquitectura de Rails - MVC
+####Arquitectura de Rails - MVC
 
-	Modelo: Es la representación de la información con la cual el sistema opera. Componentes contables y descriptivos que conviven con métodos para su manipulación.
+**Modelo:** Es la representación de la información con la cual el sistema opera. Componentes contables y descriptivos que conviven con métodos para su manipulación.
 
-	Vista:
+**Vista:**
 	
-	Controlador: Son los que se encargan de recibir las peticiones HTTP y de acuerdo a ello, realiza una acción para responder de forma adecuada.
+**Controlador:** Son los que se encargan de recibir las peticiones HTTP y de acuerdo a ello, realiza una acción para responder de forma adecuada.
 
 El usuario, interactua con el controlador mediante las rutas (las páginas), luego los manipuladores se encargan de realizar la conexión con los modelos. Una vez esto hecho y la conexión con los modelos, el controlador se encarga de obtener los datos para la vista.
 
@@ -88,17 +84,16 @@ Al lío:
 1. Rails new musicapp
 2. Rails server (El contenido se correo en un servidor de aplicaciones llamado WebRick)
 
-
-Estructura de Aplicación:
-	- app => Se contiene todo el código relacionado a la lógica de la aplicación. Por convención, todo el contenido de controllers, models y views, se situan en esta carpeta.
-		-> Assets: son todos los archivos que se requieren. (imgs, js, css)
-		-> Controllers: Los controladores son los que se encargan de manejar todas las peticiones HTTP y la devolución de los modelos.
-		-> Helpers: Se coloca toda la estructura de código que vamos a reutilizar en todas las vistas.
-		-> Mailers: Se 
-		-> Modelos: Contienen toda la lógica de la app y el contenido de las clases de las bases de datos.
-	- bin =>
-	- config => 
-		-> Environments: Configuraciones que tenemos cuando estamos desarrollando. Estas son diferentes en prueba, en desarrollo y en producción. Por ejemplo, en método de desarrollo, las vistas se cargan en su totalidad, lo que no sucede en producción.
+###Estructura de Aplicación:
+** app => ** Se contiene todo el código relacionado a la lógica de la aplicación. Por convención, todo el contenido de controllers, models y views, se situan en esta carpeta.
+	* Assets: son todos los archivos que se requieren. (imgs, js, css)
+	* Controllers: Los controladores son los que se encargan de manejar todas las peticiones HTTP y la devolución de los modelos.
+	* Helpers: Se coloca toda la estructura de código que vamos a reutilizar en todas las vistas.
+	* Mailers: Se 
+	* Modelos: Contienen toda la lógica de la app y el contenido de las clases de las bases de datos.
+** bin => **
+** config => ** 
+..* Environments: Configuraciones que tenemos cuando estamos desarrollando. Estas son diferentes en prueba, en desarrollo y en producción. Por ejemplo, en método de desarrollo, las vistas se cargan en su totalidad, lo que no sucede en producción.
 		-> Initializers: Configuraciones que necesitamos que se carguen al iniciar el servidor. 
 			* database.yml => Es en donde se guarda la configuración de las bases de datos. Usuario, tipo de DB, contraseña, etc.
 			* routes.rb => Son las rutas que se generan por cada controlador. 
