@@ -338,13 +338,13 @@ before_action :set_track, only: [:show, :edit, :update, :destroy]
 
 ## CREACION DE ESTRUCTURAS SIN SCAFFOLD
 
-	► rails new app -d mysql
+► rails new app -d mysql
+
+► mysql -u root -p
+
+► CREATE DATABASE landingmailer;
 	
-	► mysql -u root -p
-	
-	► CREATE DATABASE landingmailer;
-	
-	* IR A config/database.yml
+* IR A config/database.yml
 ```	
 	default: &default
 	  adapter: mysql2
@@ -368,10 +368,9 @@ before_action :set_track, only: [:show, :edit, :update, :destroy]
 ```
 ####CREAR EL MODELO
 
-	► Ir a app/models/
-	  nano playlist.rb
-
-	► Crear la clase del modelo:
+► Ir a app/models/
+  nano playlist.rb
+► Crear la clase del modelo:
 
 * Hereda de la clase AR, para poder manipular las DB con los comandos internos
 * Nombre de clase con Mayúscula
@@ -384,102 +383,106 @@ before_action :set_track, only: [:show, :edit, :update, :destroy]
 
 * Ir a consola:
 
-	► rails console
+► rails console
 	
 * Para probar si la tabla existe, claramente no porque no hemos migrado las tablas
 
-	► Playlist.connection
+► Playlist.connection
 
-	► Playlist
+► Playlist
 
-	► => Playlist(Table doesn't exist)
+► => Playlist(Table doesn't exist)
 	
 * **LAS MIGRACIONES SON VERSIONES DE NUESTRAS DB QUE PODEMOS IR CRECIENDO Y HACIENDO CAMBIOS EN EL PRINCIPIO DE LA CREACIÓN.**
 	
-	► Salir de consola: Ctrl + D // Ctrl + R
+► Salir de consola: Ctrl + D // Ctrl + R
 
 * Realizar migración para generar la tabla con ActiveRecord, Playlist
 
-	► rails generate migration CreatePlaylists
-								 #CreatePluralModelName
+► rails generate migration CreatePlaylists
+			   **CreatePluralModelName**
 
-		# Esto genera el modelo ActiveRecord y una migración con su nombre.
-	    # invoke  active_record
-		# create    db/migrate/20160416073817_create_playlists.rb
+* Esto genera el modelo ActiveRecord y una migración con su nombre.
+```	
+	invoke  active_record
+	create    db/migrate/20160416073817_create_playlists.rb
+```
+
+► rake db:migrate:status
+
+	database: /Users/williamromero/Desktop/Platzi/Rails/musicapp/db/development.sqlite3
+```
+	 Status   Migration ID    Migration Name
+	--------------------------------------------------
+	   up     20160414060548  Create tracks
+	  down    20160416073817  Create playlists
+```	  
 
 
-	rake db:migrate:status
+####IR AL MODELO PLAYLIST Y AGREGAR LOS CAMBIOS A UTILIZAR
 
-		database: /Users/williamromero/Desktop/Platzi/Rails/musicapp/db/development.sqlite3
-
-		 Status   Migration ID    Migration Name
-		--------------------------------------------------
-		   up     20160414060548  Create tracks
-		  down    20160416073817  Create playlists
-
-
-	IR AL MODELO PLAYLIST Y AGREGAR LOS CAMBIOS A UTILIZAR
-
-		1. Ir a config/db/migrate y buscar la migración de playlist
-		2. Luego definir los campos a utilizar:
-
-		class CreatePlaylists < ActiveRecord::Migration
-			  def change
-			    create_table :playlists do |t|
-			    	t.string :name
+1. Ir a config/db/migrate y buscar la migración de playlist
+2. Luego definir los campos a utilizar:
+```
+	class CreatePlaylists < ActiveRecord::Migration
+		def change
+			create_table :playlists do |t|
+				t.string :name
 			    	t.integer :number_of_votes
-			    end
-			  end
+			end
 		end
+	end
+```
 
-	Recibimos el error de rake db:migrate y por ello vamos a rake db:migrate:status para ver que base de datos no ha sido migrada (actualizada y asignada a la db) para usarse como modelo.
+- Recibimos el error de **rake db:migrate** y por ello vamos a rake db:migrate:status para ver que base de datos no ha sido migrada (actualizada y asignada a la db) para usarse como modelo.
 
-	rake db:migrate:status
+► rake db:migrate:status
 
-		database: /Users/williamromero/Desktop/Platzi/Rails/musicapp/db/development.sqlite3
+```
+	database: /Users/williamromero/Desktop/Platzi/Rails/musicapp/db/development.sqlite3
 
-		 Status   Migration ID    Migration Name
-		--------------------------------------------------
-		   up     20160414060548  Create tracks
-		  down    20160416073817  Create playlists   # No está creada en la DB
+	 Status   Migration ID    Migration Name
+	--------------------------------------------------
+	   up     20160414060548  Create tracks
+	  down    20160416073817  Create playlists   # No está creada en la DB
+```
 
-	Por ello vamos a consola y presionamos:
+Por ello vamos a consola y presionamos:
 
-		rake db:migrate
+► rake db:migrate
+```
+	== 20160416073817 CreatePlaylists: migrating ==================================
+	-- create_table(:playlists)
+	-> 0.0014s
+	== 20160416073817 CreatePlaylists: migrated (0.0015s) =========================
+```
 
-			== 20160416073817 CreatePlaylists: migrating ==================================
-			-- create_table(:playlists)
-			   -> 0.0014s
-			== 20160416073817 CreatePlaylists: migrated (0.0015s) =========================
+Luego vamos a rails console
+```
+	Playlist.connection
+	2.3.0 :002 > Playlist
+	=> Playlist(id: integer, name: string, number_of_votes: integer) 
+```
+ActiveRecord crea en todos los modelos, el atributo id para poder realizar búsquedas sobre la tabla.
 
+#### CREAR EL CONTROLADOR
 
-	Luego vamos a rails console
+* Vamos a config/routes.rb
+```
+	Rails.application.routes.draw do
+  	resources :tracks  
+```
+  	resources :name_of_table #Crea todos los recursos que queremos exponer vía URL
+  	#Esto creará una estructura REST para que nuestra aplicación pueda ser leída.
+```
+	Rails.application.routes.draw do
+  	resources :playlists  		
+```
 
-		Playlist.connection
+* Para ver las rutas que crea resources de nuestro modelo, presionar: 
 
-		2.3.0 :002 > Playlist
-		 => Playlist(id: integer, name: string, number_of_votes: integer) 
-
-		ActiveRecord crea en todos los modelos, el atributo id para poder realizar búsquedas sobre la tabla.
-
-
-CREAR EL CONTROLADOR
-
-	Vamos a config/routes.rb
-
-		Rails.application.routes.draw do
-  		resources :tracks  
-
-  		resources :name_of_table #Crea todos los recursos que queremos exponer vía URL
-  		#Esto creará una estructura REST para que nuestra aplicación pueda ser leída.
-
-					Rails.application.routes.draw do
-  					resources :playlists  		
-
-  		Para ver las rutas que crea resources de nuestro modelo, presionar: 
-
-  			rake routes
-
+► rake routes
+```
 		       Prefix Verb   URI Pattern                   Controller#Action
 		       tracks GET    /tracks(.:format)             tracks#index
 		              POST   /tracks(.:format)             tracks#create
@@ -497,40 +500,41 @@ CREAR EL CONTROLADOR
 		              PATCH  /playlists/:id(.:format)      playlists#update
 		              PUT    /playlists/:id(.:format)      playlists#update
 		              DELETE /playlists/:id(.:format)      playlists#destroy  			
+```
 
+* Si ya tenemos la ruta y el modelo, nos falta el controlador, por lo tanto hay que generarlo:
 
-		Si ya tenemos la ruta y el modelo, nos falta el controlador, por lo tanto hay que generarlo:
+	TAL COMO ACTIVE RECORD AYUDA AL SISTEMA A COMPRENDER QUE EL MODELO DEBE DE MANEJAR LA BASE DE DATOS, EL APPLICATION CONTROLLER AYUDA AL SISTEMA A COMPRENDER EL SISTEMA DE RUTAS PARA PODER SERVIR VISTAS DE ACUERDO A LAS NECESIDADES DEL CONTROLADOR
 
-		TAL COMO ACTIVE RECORD AYUDA AL SISTEMA A COMPRENDER QUE EL MODELO DEBE DE MANEJAR LA BASE DE DATOS, EL APPLICATION CONTROLLER AYUDA AL SISTEMA A COMPRENDER EL SISTEMA DE RUTAS PARA PODER SERVIR VISTAS DE ACUERDO A LAS NECESIDADES DEL CONTROLADOR
+	Vamos a app/controllers/
+	Creamos el archivo: playlists.rb
 
-			Vamos a app/controllers/
-			Creamos el archivo: playlists.rb
+	ó
 
-				ó
+	rails generate controller playlists
 
-			rails generate controller playlists
+* rails generate controller playlists >> Creará el controlador y las vistas y assets necesarios que están ya determinados en las rutas.
 
-		#rails generate controller playlists >> Creará el controlador y las vistas y assets necesarios que están ya determinados en las rutas.
+	Running via Spring preloader in process 3210
+	create  app/controllers/playlists_controller.rb
+	invoke  erb
+	create    app/views/playlists
+	invoke  test_unit
+	create    test/controllers/playlists_controller_test.rb
+	invoke  helper
+	create    app/helpers/playlists_helper.rb
+	invoke    test_unit
+	invoke  assets
+	invoke    coffee
+	create      app/assets/javascripts/playlists.coffee
+	invoke    scss
+	create      app/assets/stylesheets/playlists.scss 
 
-			  Running via Spring preloader in process 3210
-		      create  app/controllers/playlists_controller.rb
-		      invoke  erb
-		      create    app/views/playlists
-		      invoke  test_unit
-		      create    test/controllers/playlists_controller_test.rb
-		      invoke  helper
-		      create    app/helpers/playlists_helper.rb
-		      invoke    test_unit
-		      invoke  assets
-		      invoke    coffee
-		      create      app/assets/javascripts/playlists.coffee
-		      invoke    scss
-		      create      app/assets/stylesheets/playlists.scss 
+* Vamos al controlador playlists
+	
+	app/controllers/
 
-		Vamos al controlador playlists
-			app/controllers/
-
-		Abrir el archivo playlists_controller.rb
+* Abrir el archivo playlists_controller.rb
 
 		Si vamos a la ruta /playlists/, veremos que tenemos el error de que la action "index" no fue encontrada en PlaylistsController, debido a que el mismo, no hace referencia a ningun método, y por lo tanto a ninguna vista ya que como vimos antes, en un controlador existen los métodos y por cada método existe una vista.
 
