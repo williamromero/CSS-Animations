@@ -1,21 +1,18 @@
 ##MODELO VISTA CONTROLADOR
-Ruby on Rails
+###Ruby on Rails
 
-Cada aplicación contiene en sí, una carpeta llamada "app" en la que se
-encuentran los folders "controllers", "models" y "views". Esto debido a que
-responde a la lógica MVC (aplicación de estructura).
-P
+Cada aplicación contiene en sí, una carpeta llamada "app" en la que se encuentran los folders "controllers", "models" y "views". Esto debido a que responde a la lógica MVC (aplicación de estructura).
 
-	- Modelo: Está formado por clases. Cada clase es un modelo y cada modelo, 
+	* Modelo: Está formado por clases. Cada clase es un modelo y cada modelo, 
 			 representa una tabla en la DB. Por lo tanto, es el encargado de trabajar con la lógica de la base de datos.
 			 Por otra parte, los modelos son "objetos" que se crean para la aplicación web.
 			 Los modelos son la forma como se encapsulara la informacion, es decir es el tipo de informacion que finalmente vera el usuario. 
 
-	- Vista: Es la representación final de una petición. (HTML, ERB, JS, CSS) Es decir,
+	* Vista: Es la representación final de una petición. (HTML, ERB, JS, CSS) Es decir,
 			 la forma en la que se presentará la información.
 			 Asimismo, es como cuando en un archivo PHP utilizamos diferentes plantillas HTML para desplegar lo que se busca en la DB con scripts de PHP y MySQL. Por lo tanto, las vistas son las que despliegan las funciones que se requieren al explorador.
 
-	- Controlador: Es el encargado de la lógica de la petición. Es un puente entre la 
+	* Controlador: Es el encargado de la lógica de la petición. Es un puente entre la 
 			 Vista y el modelo. Cada controlador, será una clase con métodos y por cada método habrá una vista que representará la versión procesada de ese método.
 			 El controlador, por lo tanto se traduce en los archivos que operan acciones y scripts, haciendo llamadas a diferentes propiedades del objeto (las clases de la DB) y desplegandolas luego en la vista.
 
