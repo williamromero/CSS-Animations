@@ -111,14 +111,14 @@ Al lío:
 		- coffee script: javascript precompilado al estilo Rails
 		- turbolinks: gema para crear aplicaciones que no tengan que recargarse completas sino solo los elementos a modificar. Es una alternativa parecida a Angular o React.
 
-####SCAFFOLD 
+####SCAFFOLD:
 	
 * Es una función que servirá para crear una estructura de vistas, controladores para manejar los modelos.
 ```
 rails generate scaffold track title:string album:string artist:string
 		      model_name	name_field:data_type
 ```
-####MIGRACIONES
+####MIGRACIONES:
 
 * Las migraciones son las que le dicen a la DB que tablas y campos debe de generar tanto como cambiar tipo de datos de campos o eliminar una tabla o campo.
 
@@ -138,17 +138,20 @@ rails generate scaffold track title:string album:string artist:string
 	  end
 	end
 ```
-	► rake db:migrate
+	
+► rake db:migrate
+
 	
 * LA FORMA DE INTERACTUAR CON LOS MODELOS, SON LAS RUTAS" por medio de los controladores.	
 
-	► cd /config/routes.rb/
+► cd /config/routes.rb/
 
 ```
 	Rails.application.routes.draw do
   	resources :tracks
 ```	
-	► rake routes
+
+► rake routes
 
 ####EXPLICACIÓN MVC en RAILS
 
@@ -162,14 +165,15 @@ rails generate scaffold track title:string album:string artist:string
 
  * "LOS MODELOS SON LOS OBJETOS QUE CONTIENEN LA LÓGICA DE NUESTRA APLICACIÓN"
  	
-####METODOS x CADA VISTA
+####METODOS x CADA VISTA:
+
 	- index 		- update
 	- show			- destroy
 	- news			- create
  	- set
 
 
-####ACTIVE RECORD 
+####ACTIVE RECORD: 
 * Funciones de manipulación del modelo. Puede crear, editar, modificar tablas y campos.
 	
 	► rake db:migrate
@@ -220,7 +224,7 @@ before_action :set_track, only: [:show, :edit, :update, :destroy]
   	end
 ```
 
-####RAILS CONSOLE
+####RAILS CONSOLE:
 
 * La consola de Rails, permite manipular los modelos que se han creado.
 ```
@@ -248,7 +252,7 @@ before_action :set_track, only: [:show, :edit, :update, :destroy]
  		=> 1 
 ```
 
-####INSTANCIA DE CLASE MODELO
+####INSTANCIA DE CLASE MODELO:
 ```
  	cancion = Track.new
  		=> #<Track id: nil, title: nil, album: nil, artist: nil, created_at: nil, updated_at: nil>
@@ -312,12 +316,13 @@ before_action :set_track, only: [:show, :edit, :update, :destroy]
  ** "LOS ANTERIORES MÉTODOS SON LOS QUE ENCONTRAMOS EN EL CONTROLADOR PARA MANIPULAR LOS OBJETOS DE RUBY"**
 ````
 
-####RUTAS
+####RUTAS:
 
 * rake routes // Toda la funcionalidad que queremos exponer nuestra aplicacion
 
 * Para manipular las rutas, acceder a:
-	**► /config/routes.rb**
+
+**► /config/routes.rb**
 ```
 	resources	:tracks  
 	// Este método crea automáticamente todos los recursos que podemos utilizar (edit, show, destroy).
@@ -330,34 +335,36 @@ before_action :set_track, only: [:show, :edit, :update, :destroy]
 
 ####HELPERS
 
-///////////////////////// CREACION DE ESTRUCTURAS SIN SCAFFOLD /////////////////////
+## CREACION DE ESTRUCTURAS SIN SCAFFOLD
 
-rails new app -d mysql
+► rails new app -d mysql
 
-mysql -u root -p
-CREATE DATABASE landingmailer;
+► mysql -u root -p
 
-IR A config/database.yml
+► CREATE DATABASE landingmailer;
 
-		default: &default
-		  adapter: mysql2
-		  encoding: utf8
-		  pool: 5
-		  username: root
-		  password: Cocacola15
-		  socket: /tmp/mysql.sock
+* IR A config/database.yml
+```	
+	default: &default
+	  adapter: mysql2
+	  encoding: utf8
+	  pool: 5
+	  username: root
+	  password: Cocacola15
+	  socket: /tmp/mysql.sock
 
-		development:
-		  <<: *default
-		  database: landingmailer
+	development:
+	   <<: *default
+	   database: landingmailer
 
-		# Warning: The database defined as "test" will be erased and
-		# re-generated from your development database when you run "rake".
-		# Do not set this db to the same as development or production.
-		test:
-		  <<: *default
-		  database: landingmailer
-
+	# Warning: The database defined as "test" will be erased and
+	# re-generated from your development database when you run "rake".
+	# Do not set this db to the same as development or production.
+	
+	test:
+	  <<: *default
+	  database: landingmailer
+```
 CREAR EL MODELO
 	Ir a app/models/
 		nano playlist.rb
