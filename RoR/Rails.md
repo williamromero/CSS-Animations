@@ -1,4 +1,4 @@
-MODELO VISTA CONTROLADOR
+##MODELO VISTA CONTROLADOR
 Ruby on Rails
 
 Cada aplicación contiene en sí, una carpeta llamada "app" en la que se
