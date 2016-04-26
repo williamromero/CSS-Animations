@@ -138,20 +138,17 @@ rails generate scaffold track title:string album:string artist:string
 	  end
 	end
 ```
-
-
 	► rake db:migrate
 	
 * LA FORMA DE INTERACTUAR CON LOS MODELOS, SON LAS RUTAS" por medio de los controladores.	
-	
+
 	► cd /config/routes.rb/
-	
+
 ```
 	Rails.application.routes.draw do
   	resources :tracks
-```
-
-	- rake routes
+```	
+	► rake routes
 
 ####EXPLICACIÓN MVC en RAILS
 
@@ -159,7 +156,7 @@ rails generate scaffold track title:string album:string artist:string
 ```
  	Prefix	Verb	URI Pattern			Controller#Action
  	tracks  GET 	/tracks(.:format)	tracks#index
- ````
+```
 
  * Lo que quiere decir, es que cuando vayamos a **"/tracks"**, esta ruta corresponde a una acción de nuestro controlador y que tiene un método index.
 
@@ -174,57 +171,59 @@ rails generate scaffold track title:string album:string artist:string
 
 ####ACTIVE RECORD 
 * Funciones de manipulación del modelo. Puede crear, editar, modificar tablas y campos.
-```	
-	rake db:migrate
+	
+	► rake db:migrate
 	(guarda la configuración de la tabla)
-```
+
 ####RUTAS:
 
+```
 	resources :track -> Creador de rutas para nuestras acciones.
 	Para ver nuestras rutas, presionar:
+````
 
-		rake routes
+	► rake routes
 
-	Los verbos de HTTP son GET, POST, PUT & PATCH.
+* Los verbos de HTTP son GET, POST, PUT & PATCH.
+* Para ingresar a cada una de las vistas de las acciones, seguimos el patrón brindado por el comando rake routes.
+* Las acciones o métodos, tomarán el valor de todas las instancias del modelo para luego delegar a la vista la representación del contenido.
 
-	Para ingresar a cada una de las vistas de las acciones, seguimos el patrón brindado por el comando rake routes.
+####MODELOS 
 
-	Las acciones o métodos, tomarán el valor de todas las instancias del modelo para luego delegar a la vista la representación del contenido.
+* **SHOW:** Produce la acción show, del controlador **'tracks'**, que va al filtro **"before_action"** y pide a la función **"set_track"**, llame a la método find del modelo que le antecede:
+```
+	@track= Track.find(params[:id])
+```
+*Y eso lo guarda en la variable de instancia @track.
 
-MODELOS 
+* **Track->** El módelo y toda la abstracción del modelo. Esta hereda del ActiveRecord::Base 
+```
+FILTRO before_action :func
 
-	-> SHOW: Produce la acción show, del controlador 'tracks', que va al filtro "before_action" y pide a la función "set_track", llame a la método find del modelo que le antecede:
-
-		@track= Track.find(params[:id])
-
-	Y eso lo guarda en la variable de instancia @track.
-
-	Track-> El módelo y toda la abstracción del modelo. Esta hereda del ActiveRecord::Base 
-
-	FILTRO before_action :func
-
-	before_action :set_track, only: [:show, :edit, :update, :destroy]
-
-		def set_track
-	      @track = Track.find(params[:id])
+before_action :set_track, only: [:show, :edit, :update, :destroy]
+	def set_track
+	     @track = Track.find(params[:id])
 	     #Instance = Modelo.find(parametro[:id])
-	     #	Var
-	    end
+	     #Var
+	end
+````
 
-ACTIVE RECORD: Es un librería que nos permite conectar con la DB y realizar las peticiones. Los modelos heredan de esta clase para para poder responder a las peticiones del controlador.
+####ACTIVE RECORD: 
+* Es un librería que nos permite conectar con la DB y realizar las peticiones. Los modelos heredan de esta clase para para poder responder a las peticiones del controlador.
 
-	Por ejemplo:
-
-		def index
+- Por ejemplo:
+```
+	def index
     		@tracks = Track.all
-  		  #Instance = Modelo.all (Del objeto Modelo, traer todo los objetos)
-  		   	#Var
-  		end
+  		#Instance = Modelo.all (Del objeto Modelo, traer todo los objetos)
+  		#Var
+  	end
+```
 
-RAILS CONSOLE
+####RAILS CONSOLE
 
-	La consola de Rails, permite manipular los modelos que se han creado.
-
+* La consola de Rails, permite manipular los modelos que se han creado.
+```
 	rails console
 	Model.connection -> Conecta con la DB.
 	Track -> Este comando mostrará los campos que hemos creado
@@ -247,85 +246,89 @@ RAILS CONSOLE
 		 Track.where(artist:"Camila").count
    		(0.3ms)  SELECT COUNT(*) FROM "tracks" WHERE "tracks"."artist" = ?  [["artist", "Camila"]]
  		=> 1 
+```
 
- INSTANCIA DE CLASE MODELO
+####INSTANCIA DE CLASE MODELO
+```
+ 	cancion = Track.new
+ 		=> #<Track id: nil, title: nil, album: nil, artist: nil, created_at: nil, updated_at: nil>
 
- 		cancion = Track.new
- 			=> #<Track id: nil, title: nil, album: nil, artist: nil, created_at: nil, updated_at: nil>
+	cancion.title = 'Five'
+		=> "Five" 
 
-		 ancion.title = 'Five'
-		 	=> "Five" 
+	cancion
+ 		=> #<Track id: nil, title: "Five", album: nil, artist: nil, created_at: nil, updated_at: nil> 
 
-		 cancion
- 			=> #<Track id: nil, title: "Five", album: nil, artist: nil, created_at: nil, updated_at: nil> 
+ 	cancion.save
 
- 		cancion.save
+	(0.1ms)  begin transaction
+	SQL (0.5ms)  INSERT INTO "tracks" ("title", "created_at", "updated_at") VALUES (?, ?, ?)  [["title", "Five"], ["created_at", "2016-04-16 02:41:06.876952"], ["updated_at", "2016-04-16 02:41:06.876952"]]
+	(1.1ms)  commit transaction		
 
-		    (0.1ms)  begin transaction
-		  SQL (0.5ms)  INSERT INTO "tracks" ("title", "created_at", "updated_at") VALUES (?, ?, ?)  [["title", "Five"], ["created_at", "2016-04-16 02:41:06.876952"], ["updated_at", "2016-04-16 02:41:06.876952"]]
-		   (1.1ms)  commit transaction		
+	canciones = Track.all  // lista de todos los objetos del modelo Track
 
-		canciones = Track.all  // lista de todos los objetos del modelo Track
+	Track Load (0.3ms)  SELECT "tracks".* FROM "tracks"
+	=> #<ActiveRecord::Relation [#<Track id: 1, title: "Work", album: "The best", artist: "Rihanna", created_at: "2016-04-14 06:24:11", updated_at: "2016-04-14 06:24:11">, #<Track id: 2, title: "Todo cambio", album: "Primer Album", artist: "Camila", created_at: "2016-04-15 23:12:15", updated_at: "2016-04-15 23:12:15">, #<Track id: 3, title: "Dejarte de amar", album: "Primero", artist: "Kalimba", created_at: "2016-04-16 01:54:41", updated_at: "2016-04-16 01:54:41">, #<Track id: 4, title: "Five", album: nil, artist: nil, created_at: "2016-04-16 02:41:06", updated_at: "2016-04-16 02:41:06">]> 
 
-		 Track Load (0.3ms)  SELECT "tracks".* FROM "tracks"
- 			=> #<ActiveRecord::Relation [#<Track id: 1, title: "Work", album: "The best", artist: "Rihanna", created_at: "2016-04-14 06:24:11", updated_at: "2016-04-14 06:24:11">, #<Track id: 2, title: "Todo cambio", album: "Primer Album", artist: "Camila", created_at: "2016-04-15 23:12:15", updated_at: "2016-04-15 23:12:15">, #<Track id: 3, title: "Dejarte de amar", album: "Primero", artist: "Kalimba", created_at: "2016-04-16 01:54:41", updated_at: "2016-04-16 01:54:41">, #<Track id: 4, title: "Five", album: nil, artist: nil, created_at: "2016-04-16 02:41:06", updated_at: "2016-04-16 02:41:06">]> 
+ 	canciones[0]  //mediante índice
 
- 		canciones[0]  //mediante índice
+ 	=> #<Track id: 1, title: "Work", album: "The best", artist: "Rihanna", created_at: "2016-04-14 06:24:11", updated_at: "2016-04-14 06:24:11">
 
- 			=> #<Track id: 1, title: "Work", album: "The best", artist: "Rihanna", created_at: "2016-04-14 06:24:11", updated_at: "2016-04-14 06:24:11">
+ 	cancion = canciones.last
 
- 		cancion = canciones.last
+ 	=> #<Track id: 4, title: "Five", album: nil, artist: nil, created_at: "2016-04-16 02:41:06", updated_at: "2016-04-16 02:41:06"> 
 
- 		 => #<Track id: 4, title: "Five", album: nil, artist: nil, created_at: "2016-04-16 02:41:06", updated_at: "2016-04-16 02:41:06"> 
+ 	cancion.album = 'Five'
+ 	cancion.artist = 'Maroon Five'
+ 	cancion.save
+```
 
- 		cancion.album = 'Five'
- 		cancion.artist = 'Maroon Five'
- 		cancion.save
+####PARA AGREGAR CONTENIDO DE PRUEBA:
+```
+	2.3.0 :033 >   10.times do
+	2.3.0 :034 >     Track.create title: 'Destiny', album: 'Destiny', artist: 'Stratovarius'
+	2.3.0 :035?>   end
 
- 		PARA AGREGAR CONTENIDO DE PRUEBA:
+- PARA BUSCAR UN ELEMENTO:
 
- 		2.3.0 :033 >   10.times do
-		2.3.0 :034 >     Track.create title: 'Destiny', album: 'Destiny', artist: 'Stratovarius'
-		2.3.0 :035?>   end
+	Track.find 12
 
-		PARA BUSCAR UN ELEMENTO:
+- PARA BUSCAR TODOS LOS ELEMENTOS QUE CUMPLAN CONDICIÓN
 
-		Track.find 12
+	cancion = Track.where title: 'Destiny' // apareceran los 10 registros creados anteriormente.
+	cancion.count => 10
 
-			PARA BUSCAR TODOS LOS ELEMENTOS QUE CUMPLAN CONDICIÓN
+- PARA OBTENER LA PRIMERA COINCIDENCIA DE UNA BUSQUEDA CON CONDICION
+	
+	Track.find_by title: 'Destiny' // Traerá solo la primera coincidencia
 
-				cancion = Track.where title: 'Destiny' // apareceran los 10 registros creados anteriormente.
+- BORRAR ELEMENTOS:
 
-				cancion.count => 10
+	canciones = Track.where artist: 'Stratovarius'
+	canciones.count
+	// canciones.destroy
+	canciones.destroy_all
 
-			PARA OBTENER LA PRIMERA COINCIDENCIA DE UNA BUSQUEDA CON CONDICION
-				Track.find_by title: 'Destiny' // Traerá solo la primera coincidencia
+ ** "LOS ANTERIORES MÉTODOS SON LOS QUE ENCONTRAMOS EN EL CONTROLADOR PARA MANIPULAR LOS OBJETOS DE RUBY"**
+````
 
+####RUTAS
 
-			BORRAR ELEMENTOS:
+* rake routes // Toda la funcionalidad que queremos exponer nuestra aplicacion
 
-				canciones = Track.where artist: 'Stratovarius'
-				canciones.count
-				// canciones.destroy
-				canciones.destroy_all
+* Para manipular las rutas, acceder a:
+	**► /config/routes.rb**
+```
+	resources	:tracks  
+	// Este método crea automáticamente todos los recursos que podemos utilizar (edit, show, destroy).
+```
 
-	"LOS ANTERIORES MÉTODOS SON LOS QUE ENCONTRAMOS EN EL CONTROLADOR PARA MANIPULAR LOS OBJETOS DE RUBY"
-
-RUTAS
-
-	rake routes // Toda la funcionalidad que queremos exponer nuestra aplicacion
-
-	Para manipular las rutas, acceder a:
-		-> /config/routes.rb
-
-		resources	:tracks  
-		// Este método crea automáticamente todos los recursos que podemos utilizar (edit, show, destroy).
-
-LAYOUTS
-
+####LAYOUTS
+```
 	Son las vistas que se predefinen con el header y el footer y que tendrán que aparecer en cada una de las vistas de accion del controlador.
+```
 
-HELPERS
+####HELPERS
 
 ///////////////////////// CREACION DE ESTRUCTURAS SIN SCAFFOLD /////////////////////
 
