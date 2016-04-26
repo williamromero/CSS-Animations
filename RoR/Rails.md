@@ -334,16 +334,17 @@ before_action :set_track, only: [:show, :edit, :update, :destroy]
 ```
 
 ####HELPERS
+----------------------------------------------------------------------------------------
 
 ## CREACION DE ESTRUCTURAS SIN SCAFFOLD
 
-► rails new app -d mysql
-
-► mysql -u root -p
-
-► CREATE DATABASE landingmailer;
-
-* IR A config/database.yml
+	► rails new app -d mysql
+	
+	► mysql -u root -p
+	
+	► CREATE DATABASE landingmailer;
+	
+	* IR A config/database.yml
 ```	
 	default: &default
 	  adapter: mysql2
@@ -367,10 +368,10 @@ before_action :set_track, only: [:show, :edit, :update, :destroy]
 ```
 ####CREAR EL MODELO
 
-► Ir a app/models/
-	nano playlist.rb
+	► Ir a app/models/
+	  nano playlist.rb
 
-► Crear la clase del modelo:
+	► Crear la clase del modelo:
 
 * Hereda de la clase AR, para poder manipular las DB con los comandos internos
 * Nombre de clase con Mayúscula
@@ -383,21 +384,23 @@ before_action :set_track, only: [:show, :edit, :update, :destroy]
 
 * Ir a consola:
 
-► rails console
+	► rails console
 	
 * Para probar si la tabla existe, claramente no porque no hemos migrado las tablas
 
-► Playlist.connection
-► Playlist
-► => Playlist(Table doesn't exist)
+	► Playlist.connection
+
+	► Playlist
+
+	► => Playlist(Table doesn't exist)
 	
 * **LAS MIGRACIONES SON VERSIONES DE NUESTRAS DB QUE PODEMOS IR CRECIENDO Y HACIENDO CAMBIOS EN EL PRINCIPIO DE LA CREACIÓN.**
 	
-	Salir de consola: Ctrl + D // Ctrl + R
+	► Salir de consola: Ctrl + D // Ctrl + R
 
-	Realizar migración para generar la tabla con ActiveRecord, Playlist
+* Realizar migración para generar la tabla con ActiveRecord, Playlist
 
-		rails generate migration CreatePlaylists
+	► rails generate migration CreatePlaylists
 								 #CreatePluralModelName
 
 		# Esto genera el modelo ActiveRecord y una migración con su nombre.
