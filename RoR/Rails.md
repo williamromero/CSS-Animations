@@ -365,30 +365,33 @@ before_action :set_track, only: [:show, :edit, :update, :destroy]
 	  <<: *default
 	  database: landingmailer
 ```
-CREAR EL MODELO
-	Ir a app/models/
-		nano playlist.rb
+####CREAR EL MODELO
 
-	Crear la clase del modelo:
+► Ir a app/models/
+	nano playlist.rb
 
-		#Hereda de la clase AR, para poder manipular las DB con los comandos internos
-		#Nombre de clase con Mayúscula
-		class Playlist < ActiveRecord::Base 
+► Crear la clase del modelo:
 
-		end
+* Hereda de la clase AR, para poder manipular las DB con los comandos internos
+* Nombre de clase con Mayúscula
 
+```	
+	class Playlist < ActiveRecord::Base 
 
-	Ir a consola:
+	end
+```
 
-		rails console
-			#Para probar si la tabla existe, claramente no porque no hemos migrado las tablas
-			Playlist.connection
+* Ir a consola:
 
-			Playlist
-			# => Playlist(Table doesn't exist)
+► rails console
 	
-	LAS MIGRACIONES SON VERSIONES DE NUESTRAS DB QUE PODEMOS IR CRECIENDO Y HACIENDO CAMBIOS
-	EN EL PRINCIPIO DE LA CREACIÓN.
+* Para probar si la tabla existe, claramente no porque no hemos migrado las tablas
+
+► Playlist.connection
+► Playlist
+► => Playlist(Table doesn't exist)
+	
+* **LAS MIGRACIONES SON VERSIONES DE NUESTRAS DB QUE PODEMOS IR CRECIENDO Y HACIENDO CAMBIOS EN EL PRINCIPIO DE LA CREACIÓN.**
 	
 	Salir de consola: Ctrl + D // Ctrl + R
 
