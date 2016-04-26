@@ -85,45 +85,47 @@ Al lío:
 2. Rails server (El contenido se correo en un servidor de aplicaciones llamado WebRick)
 
 ###Estructura de Aplicación:
-** app => ** Se contiene todo el código relacionado a la lógica de la aplicación. Por convención, todo el contenido de controllers, models y views, se situan en esta carpeta.
+
+* **app:** Se contiene todo el código relacionado a la lógica de la aplicación. Por convención, todo el contenido de controllers, models y views, se situan en esta carpeta.
 	* Assets: son todos los archivos que se requieren. (imgs, js, css)
 	* Controllers: Los controladores son los que se encargan de manejar todas las peticiones HTTP y la devolución de los modelos.
 	* Helpers: Se coloca toda la estructura de código que vamos a reutilizar en todas las vistas.
 	* Mailers: Se 
 	* Modelos: Contienen toda la lógica de la app y el contenido de las clases de las bases de datos.
-** bin => **
-** config => ** 
-..* Environments: Configuraciones que tenemos cuando estamos desarrollando. Estas son diferentes en prueba, en desarrollo y en producción. Por ejemplo, en método de desarrollo, las vistas se cargan en su totalidad, lo que no sucede en producción.
-		-> Initializers: Configuraciones que necesitamos que se carguen al iniciar el servidor. 
+* **bin:**
+* **config:** 
+	* Environments: Configuraciones que tenemos cuando estamos desarrollando. Estas son diferentes en prueba, en desarrollo y en producción. Por ejemplo, en método de desarrollo, las vistas se cargan en su totalidad, lo que no sucede en producción.
+	* Initializers: Configuraciones que necesitamos que se carguen al iniciar el servidor. 
 			* database.yml => Es en donde se guarda la configuración de las bases de datos. Usuario, tipo de DB, contraseña, etc.
 			* routes.rb => Son las rutas que se generan por cada controlador. 
 			* secrets.yml => Es el archivo en el que se guardan todas las llaves de usuario.
-	- db =>	Es donde se guardan las configuraciones de los modelos.
-	- lib => Para librerías de terceros.
-	- log => Registro de todas las interacciones con nuestra aplicación.
-	- public => Se encuentran todos los archivos estáticos (404.html, 500.html) que no necesitan el procesamiento de Ruby.
-	- test => 
-	- tmp =>
-	- vendor =>
-			*gemfile = Es donde se especifican las gemas a funcionar en el proyecto. Se describen todas las dependencias de gemas a funcionar en el proyecto.
-				- sass: css precompilado
-				- coffee script: javascript precompilado al estilo Rails
-				- turbolinks: gema para crear aplicaciones que no tengan que recargarse completas sino solo los elementos a modificar. Es una alternativa parecida a Angular o React.
+* **db:** Es donde se guardan las configuraciones de los modelos.
+* **lib:** Para librerías de terceros.
+* **log:** Registro de todas las interacciones con nuestra aplicación.
+* **public:** Se encuentran todos los archivos estáticos (404.html, 500.html) que no necesitan el procesamiento de Ruby.
+* **test:** 
+* **tmp:**
+* **vendor:**
+	* gemfile: Es donde se especifican las gemas a funcionar en el proyecto. Se describen todas las dependencias de gemas a funcionar en el proyecto.
+		- sass: css precompilado
+		- coffee script: javascript precompilado al estilo Rails
+		- turbolinks: gema para crear aplicaciones que no tengan que recargarse completas sino solo los elementos a modificar. Es una alternativa parecida a Angular o React.
 
-SCAFFOLD 
+####SCAFFOLD 
 	
-	Es una función que servirá para crear una estructura de vistas, controladores para manejar los modelos.
+* Es una función que servirá para crear una estructura de vistas, controladores para manejar los modelos.
+```
+rails generate scaffold track title:string album:string artist:string
+		      model_name	name_field:data_type
+```
+####MIGRACIONES
 
-	rails generate scaffold track title:string album:string artist:string
-						 model_name		name_field:data_type
+* Las migraciones son las que le dicen a la DB que tablas y campos debe de generar tanto como cambiar tipo de datos de campos o eliminar una tabla o campo.
 
-MIGRACIONES
-
-	Las migraciones son las que le dicen a la DB que tablas y campos debe de generar tanto como cambiar tipo de datos de campos o eliminar una tabla o campo.
-
-	Models-> Nombre en singular
-	Tabla -> Nombre en plural
-
+	**Models->** Nombre en singular
+	
+	**Tabla ->** Nombre en plural
+```
 	class CreateTracks < ActiveRecord::Migration
 	  def change
 	    create_table :tracks do |t|
@@ -135,43 +137,48 @@ MIGRACIONES
 	    end
 	  end
 	end
+```
 
-	rake db:migrate
 
-	"LA FORMA DE INTERACTUAR CON LOS MODELOS, SON LAS RUTAS" por medio
-	de los controladores.
-
-	cd /config/routes.rb/
-
+	► rake db:migrate
+	
+* LA FORMA DE INTERACTUAR CON LOS MODELOS, SON LAS RUTAS" por medio de los controladores.	
+	
+	► cd /config/routes.rb/
+	
+```
 	Rails.application.routes.draw do
   	resources :tracks
+```
 
-  	rake routes
+	- rake routes
 
- EXPLICACIÓN MVC en RAILS
+####EXPLICACIÓN MVC en RAILS
 
- 	-> En routes, podemos ver las rutas que responden a las acciones del controlador.
-
+* En routes, podemos ver las rutas que responden a las acciones del controlador.
+```
  	Prefix	Verb	URI Pattern			Controller#Action
  	tracks  GET 	/tracks(.:format)	tracks#index
+ ````
 
- 	Lo que quiere decir, es que cuando vayamos a "/tracks", esta ruta corresponde a una acción de nuestro controlador y que tiene un método index.
+ * Lo que quiere decir, es que cuando vayamos a **"/tracks"**, esta ruta corresponde a una acción de nuestro controlador y que tiene un método index.
 
- 	"LOS MODELOS SON LOS OBJETOS QUE CONTIENEN LA LÓGICA DE NUESTRA APLICACIÓN"
+ * "LOS MODELOS SON LOS OBJETOS QUE CONTIENEN LA LÓGICA DE NUESTRA APLICACIÓN"
  	
-METODOS x CADA VISTA
-	-> index 		-> update
-	-> show			-> destroy
-	-> news			-> create
- 	-> set
+####METODOS x CADA VISTA
+	- index 		- update
+	- show			- destroy
+	- news			- create
+ 	- set
 
 
-ACTIVE RECORD -> Funciones de manipulación del modelo. Puede crear, editar, modificar tablas y campos.
-
-	-> rake db:migrate
-	   (guarda la configuración de la tabla)
-
-RUTAS:
+####ACTIVE RECORD 
+* Funciones de manipulación del modelo. Puede crear, editar, modificar tablas y campos.
+```	
+	rake db:migrate
+	(guarda la configuración de la tabla)
+```
+####RUTAS:
 
 	resources :track -> Creador de rutas para nuestras acciones.
 	Para ver nuestras rutas, presionar:
