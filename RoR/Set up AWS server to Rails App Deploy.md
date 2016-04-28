@@ -75,12 +75,59 @@ dentro de la memoria de las rutas ssh, podemos borrarlo con el siguiente comando
 ```
   sudo visudo
 ```
+
   - Y agregar debajo del usuario root, el siguiente comando: 
 
   ```
     root    ALL=(ALL:ALL) ALL
     william ALL=(ALL:ALL) ALL
   ```
+  
+* Instalar Nginx con el siguiente comando:
+
+  ```
+    sudo apt-get install nginx
+    
+    sudo apt-get install nginx
+    nginx -h
+    cat /etc/init.d/nginx         // Activar por primera vez todos los servicios.
+    /etc/init.d/nginx -h
+    sudo service nginx start      // Arrancar el servidor nginx.
+    cd /etc/nginx
+  ```
+
+* Instalar la gema de Rails & 
+
+```
+  gem install rails
+```
+
+* Instalar mysql y configurar su servicio:
+
+```
+  sudo apt-get install mysql-server mysql-client libmysqlclient-dev
+```
+
+* Ingresar la contraseña del usuario root:
+```
+  New password for the MySQL "root" user:
+  ********15
+```
+
+* Instalar postgres y configurar su servicio:
+```
+  sudo apt-get install postgresql postgresql-contrib libpq-dev
+```
+
+* Instalar CAPISTRANO :
+```
+  gem install capistrano
+```
+
+* Instalar PUMA:
+```
+  gem install puma
+```
 
 
 ###Artículo en producción
