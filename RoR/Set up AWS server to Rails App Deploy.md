@@ -19,29 +19,34 @@
   cd webapp                                                       # Ingresamos a la carpeta que hemos creado.
   cp /Users/tu_nombre_de_usuario/Downloads/webapp.pem webapp.pem  # Copiamos la llave de seguridad de la carpeta en la que se descargó, hasta la carpeta "webapp" que se encuentra en el folder ~/.ssh/.
 ```
-...
-5. Antes de conectarnos a la instancia tendremos que configurar los permisos de la llave que ya descargamos para poder usarla en modo lectura únicamente. Para alterar los permisos de la llave usamos el comando:
+
+* Antes de conectarnos a la instancia tendremos que configurar los permisos de la llave que ya descargamos para poder usarla en modo lectura únicamente. Para alterar los permisos de la llave usamos el comando:
+
 ```
   chmod 0400 webapp.pem
 ```
-...
-6. Ahora, para acceder por medio de SSH, nos dirigimos a la ventana de comandos y colocamos:
+
+* Ahora, para acceder por medio de SSH, nos dirigimos a la ventana de comandos y colocamos:
+
 ```
   $ ssh -i "webapp.pem" ubuntu@ec2-00-00-000-00.us-west-2.compute-1.amazonaws.com
            *Key Name*                     *Public DNS*
 ```
-...
-7. Ya dentro del servidor, debemos de actualizar todas las dependencias:
+
+* Ya dentro del servidor, debemos de actualizar todas las dependencias:
+
 ```
   sudo apt-get update && sudo apt-get -y upgrade
 ```
-...
-8. Luego, instalar CURL & git:
+
+* Luego, instalar CURL & git:
+
 ```
   sudo apt-get install git CURL
 ```
-...
-9. Luego de instalar estas dependencias, instalamos el RVM & Ruby:
+
+* Luego de instalar estas dependencias, instalamos el RVM & Ruby:
+
 ```
   \curl -L https://get.rvm.io | bash -s stable --ruby
 ```
@@ -52,6 +57,31 @@ dentro de la memoria de las rutas ssh, podemos borrarlo con el siguiente comando
 ```
   ssh-keygen -R ec2-00-00-000-00.us-west-2.compute-1.amazonaws.com
 ```
+
+* Crear un usuario para realizar el deploy: 
+
+```
+  sudo adduser william
+```
+
+* Ingresar el usuario al grupo sudo:
+
+```
+  sudo adduser william sudo
+```
+
+* Ir al **"folder /etc/"**, luego insertar el comando:
+
+```
+  sudo visudo
+```
+  - Y agregar debajo del usuario root, el siguiente comando: 
+
+  ```
+    root    ALL=(ALL:ALL) ALL
+    william ALL=(ALL:ALL) ALL
+  ```
+
 
 ###Artículo en producción
 
