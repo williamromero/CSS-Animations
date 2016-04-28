@@ -154,3 +154,12 @@ Referencias:
 ### Deploy
 ***
 * http://www.sitepoint.com/deploy-your-rails-app-to-aws/
+* https://github.com/bvmake/WhosGotWhat/wiki/Installing-Rails-on-free-Amazon-EC2-Micro
+* https://coderwall.com/p/yz8cha/deploying-rails-app-using-nginx-unicorn-postgres-and-capistrano-to-digital-ocean
+* https://gist.github.com/jtadeulopes/7271019
+* http://railsapps.github.io/installrubyonrails-ubuntu.html
+* http://climber2002.github.io/blog/2015/02/09/deploy-rails-application-on-ubuntu-14-dot-04-part-2/
+* https://gorails.com/deploy/ubuntu/16.04
+* https://semaphoreci.com/community/tutorials/how-to-use-capistrano-to-deploy-a-rails-application-to-a-puma-server
+* https://gist.github.com/ChuckJHardy/f44dda5f94c6bbdba9a4
+* http://www.liquidweb.com/kb/how-to-install-and-configure-phpmyadmin-on-ubuntu-14-04/
