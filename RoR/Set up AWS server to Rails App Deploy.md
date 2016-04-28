@@ -129,6 +129,14 @@ dentro de la memoria de las rutas ssh, podemos borrarlo con el siguiente comando
   gem install puma
 ```
 
+* Instalar PHPMYADMIN
+```
+  sudo apt-get install phpmyadmin
+
+```
+  - Configuring phpmyadmin | Web server to reconfigure automatically: |*| Apache
+
+* 
 
 ###Artículo en producción
 
