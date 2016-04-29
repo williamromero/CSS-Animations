@@ -19,12 +19,25 @@
   cd webapp                                                       # Ingresamos a la carpeta que hemos creado.
   cp /Users/tu_nombre_de_usuario/Downloads/webapp.pem webapp.pem  # Copiamos la llave de seguridad de la carpeta en la que se descargó, hasta la carpeta "webapp" que se encuentra en el folder ~/.ssh/.
 ```
-
+  4.1 Otra forma de iniciar sería colocarlo en el escritorio de la siguiente forma:
+  ```
+    cd /Users/usuario/Desktop/
+    mkdir AWS
+    cp /Users/tu_nombre_de_usuario/Downloads/webapp.pem /Users/tu_nombre_de_usuario/Desktop/AWS/webapp.pem
+  ```
+  
+  
 * Antes de conectarnos a la instancia tendremos que configurar los permisos de la llave que ya descargamos para poder usarla en modo lectura únicamente. Para alterar los permisos de la llave usamos el comando:
 
 ```
   chmod 0400 webapp.pem
 ```
+
+  *  Debemos de agregar la llave al folder SSH:
+  
+  ```
+    ssh-add webapp.pem
+  ```
 
 * Ahora, para acceder por medio de SSH, nos dirigimos a la ventana de comandos y colocamos:
 
@@ -163,3 +176,4 @@ Referencias:
 * https://semaphoreci.com/community/tutorials/how-to-use-capistrano-to-deploy-a-rails-application-to-a-puma-server
 * https://gist.github.com/ChuckJHardy/f44dda5f94c6bbdba9a4
 * http://www.liquidweb.com/kb/how-to-install-and-configure-phpmyadmin-on-ubuntu-14-04/
+* https://praveencastelino.wordpress.com/2013/04/24/connecting-to-amazon-ec2-server-on-mac-using-terminal-app/
