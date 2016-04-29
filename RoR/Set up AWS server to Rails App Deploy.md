@@ -177,3 +177,4 @@ Referencias:
 * https://gist.github.com/ChuckJHardy/f44dda5f94c6bbdba9a4
 * http://www.liquidweb.com/kb/how-to-install-and-configure-phpmyadmin-on-ubuntu-14-04/
 * https://praveencastelino.wordpress.com/2013/04/24/connecting-to-amazon-ec2-server-on-mac-using-terminal-app/
+* http://unix.stackexchange.com/questions/3568/how-to-switch-between-users-on-one-terminal
