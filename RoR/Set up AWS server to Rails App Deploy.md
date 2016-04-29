@@ -154,7 +154,7 @@ dentro de la memoria de las rutas ssh, podemos borrarlo con el siguiente comando
 ###Artículo en producción
 
 ***
-Referencias:
+####Referencias:
 * http://www.sitepoint.com/deploy-your-rails-app-to-aws/
 * https://platzi.com/blog/instalar-ghost-amazon-ec2/
 * http://docs.aws.amazon.com/gettingstarted/latest/wah-linux/getting-started-deploy-app.html
@@ -164,7 +164,7 @@ Referencias:
 * http://railsapps.github.io/installrubyonrails-ubuntu.html
 
 
-### Deploy
+####Deploy
 ***
 * http://www.sitepoint.com/deploy-your-rails-app-to-aws/
 * https://github.com/bvmake/WhosGotWhat/wiki/Installing-Rails-on-free-Amazon-EC2-Micro
