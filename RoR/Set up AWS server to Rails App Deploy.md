@@ -183,3 +183,4 @@ dentro de la memoria de las rutas ssh, podemos borrarlo con el siguiente comando
 * https://gist.github.com/JamesDullaghan/5941259
 * https://www.ralfebert.de/tutorials/rails-deployment/
 * http://vladigleba.com/blog/topics/deployment-series/
+* https://coursecraft.net/c/rails-on-aws/splash
