@@ -184,3 +184,4 @@ dentro de la memoria de las rutas ssh, podemos borrarlo con el siguiente comando
 * https://www.ralfebert.de/tutorials/rails-deployment/
 * http://vladigleba.com/blog/topics/deployment-series/
 * https://coursecraft.net/c/rails-on-aws/splash
+* https://www.digitalocean.com/community/tutorials/how-to-deploy-rails-apps-using-unicorn-and-nginx-on-centos-6-5
