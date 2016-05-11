@@ -231,8 +231,12 @@ dentro de la memoria de las rutas ssh, podemos borrarlo con el siguiente comando
 * https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/
 * https://medium.com/@katsuya0515/deploying-rails-app-to-ec2-using-nginx-unicorn-by-capistrano-31fc3556b428#.2g14chwd3
 
+
 * https://gist.github.com/JamesDullaghan/5941259
 * https://www.ralfebert.de/tutorials/rails-deployment/
 * http://vladigleba.com/blog/topics/deployment-series/
 * https://coursecraft.net/c/rails-on-aws/splash
 * https://www.digitalocean.com/community/tutorials/how-to-deploy-rails-apps-using-unicorn-and-nginx-on-centos-6-5
+
+
+* https://www.digitalocean.com/community/tutorials/how-to-deploy-a-rails-app-with-git-hooks-on-ubuntu-14-04
