@@ -39,6 +39,51 @@
     ssh-add webapp.pem
   ```
 
+* Generar una public/private rsa key pair.
+
+```
+  ssh-keygen
+```
+* Luego de ello, aparecerán los siguientes textos a los cuales deberemos solo de dar **enter**:
+
+```
+  Generating public/private rsa key pair.
+  Enter file in which to save the key (/home/ubuntu/.ssh/id_rsa): 
+  /home/ubuntu/.ssh/id_rsa already exists.
+  Overwrite (y/n)? y
+  Enter passphrase (empty for no passphrase): 
+  Enter same passphrase again: 
+  Your identification has been saved in /home/ubuntu/.ssh/id_rsa.
+  Your public key has been saved in /home/ubuntu/.ssh/id_rsa.pub.
+  The key fingerprint is:
+  68:7c:20:6v:fw:9x:5y:1z:0a:5b:8c:7d:ae:bf:3g:4h ubuntu@ip-000-00-00-000
+  The key's randomart image is:
+  +--[ RSA 2048]----+
+  |  . E.=+ .o+     |
+  |   + = ++.o .    |
+  |    @ + .o       |
+  |   . B o         |
+  |      + S        |
+  |     . .         |
+  |                 |
+  |                 |
+  |                 |
+  +-----------------+
+```
+* Luego, ir a recoger la llave que quedó en los registros **~/.ssh/** para que Github pueda conectarse al servidor sin ninguna clave.
+```
+  ubuntu@ip-000-00-00-000:~/.ssh$ cd ~/.ssh/
+  ubuntu@ip-000-00-00-000:~/.ssh$ ls
+  authorized_keys  id_rsa  id_rsa.pub
+  ubuntu@ip-000-00-00-000:~/.ssh$ nano id_rsa.pub
+```
+
+* Copiar el registro **ssh-rsa** que corresponda al servidor al con el que vaya a conectarse.
+``` 
+  ssh-rsa aaASEADLCAGIOERGALIWQTÑPWERWQOIOIWRT...ASNWGWR ubuntu@ip-000-00-00-000
+```
+* Ir a Github: Settings/SSH and GPG keys y agregar la clave SSH del servidor a las claves de Github. Colocar el nombre y la clave de SSH.
+
 * Ahora, para acceder por medio de SSH, nos dirigimos a la ventana de comandos y colocamos:
 
 ```
