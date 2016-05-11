@@ -223,7 +223,7 @@ dentro de la memoria de las rutas ssh, podemos borrarlo con el siguiente comando
 * http://www.liquidweb.com/kb/how-to-install-and-configure-phpmyadmin-on-ubuntu-14-04/
 * https://praveencastelino.wordpress.com/2013/04/24/connecting-to-amazon-ec2-server-on-mac-using-terminal-app/
 * http://unix.stackexchange.com/questions/3568/how-to-switch-between-users-on-one-terminal
-
+* https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/
 
 * https://gist.github.com/JamesDullaghan/5941259
 * https://www.ralfebert.de/tutorials/rails-deployment/
