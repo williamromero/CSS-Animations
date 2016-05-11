@@ -194,7 +194,12 @@ dentro de la memoria de las rutas ssh, podemos borrarlo con el siguiente comando
 ```
   - Configuring phpmyadmin | Web server to reconfigure automatically: |*| Apache
 
-* 
+* Instalar Java Virtual Machine (JVM):
+```
+  sudo apt-get install openjdk-7-jdk
+```
+
+
 
 ###Artículo en producción
 
@@ -224,6 +229,7 @@ dentro de la memoria de las rutas ssh, podemos borrarlo con el siguiente comando
 * https://praveencastelino.wordpress.com/2013/04/24/connecting-to-amazon-ec2-server-on-mac-using-terminal-app/
 * http://unix.stackexchange.com/questions/3568/how-to-switch-between-users-on-one-terminal
 * https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/
+* https://medium.com/@katsuya0515/deploying-rails-app-to-ec2-using-nginx-unicorn-by-capistrano-31fc3556b428#.2g14chwd3
 
 * https://gist.github.com/JamesDullaghan/5941259
 * https://www.ralfebert.de/tutorials/rails-deployment/
