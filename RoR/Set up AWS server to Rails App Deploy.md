@@ -232,6 +232,7 @@ dentro de la memoria de las rutas ssh, podemos borrarlo con el siguiente comando
 * https://medium.com/@katsuya0515/deploying-rails-app-to-ec2-using-nginx-unicorn-by-capistrano-31fc3556b428#.2g14chwd3
 
 
+
 * https://gist.github.com/JamesDullaghan/5941259
 * https://www.ralfebert.de/tutorials/rails-deployment/
 * http://vladigleba.com/blog/topics/deployment-series/
@@ -239,5 +240,7 @@ dentro de la memoria de las rutas ssh, podemos borrarlo con el siguiente comando
 * https://www.digitalocean.com/community/tutorials/how-to-deploy-rails-apps-using-unicorn-and-nginx-on-centos-6-5
 
 
+
 * https://www.digitalocean.com/community/tutorials/how-to-deploy-a-rails-app-with-git-hooks-on-ubuntu-14-04
 * http://askubuntu.com/questions/206449/git-config-global-file-remove-settings
+* http://robmclarty.com/blog/how-to-deploy-a-rails-4-app-with-git-and-capistrano
