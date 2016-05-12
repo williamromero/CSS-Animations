@@ -166,6 +166,13 @@ dentro de la memoria de las rutas ssh, podemos borrarlo con el siguiente comando
   sudo apt-get install mysql-server mysql-client libmysqlclient-dev
 ```
 
+* Instalar postgresql y configurar su servicio:
+
+```
+  sudo apt-get install postgresql postgresql-server-dev-9.1
+  gem install pg -- --with-pg-config=/usr/bin/pg_config
+```
+
 * Ingresar la contraseña del usuario root:
 ```
   New password for the MySQL "root" user:
