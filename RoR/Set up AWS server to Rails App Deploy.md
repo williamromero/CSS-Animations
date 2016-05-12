@@ -251,5 +251,7 @@ dentro de la memoria de las rutas ssh, podemos borrarlo con el siguiente comando
   * https://www.digitalocean.com/community/tutorials/how-to-deploy-a-rails-app-with-git-hooks-on-ubuntu-14-04
   * http://askubuntu.com/questions/206449/git-config-global-file-remove-settings
   * http://robmclarty.com/blog/how-to-deploy-a-rails-4-app-with-git-and-capistrano
+  * https://launchschool.com/blog/setting-up-your-production-server-with-nginx-and-unicorn
+  * https://gist.github.com/JamesDullaghan/5941259
   * Production Rails App Capistrano
 ```
