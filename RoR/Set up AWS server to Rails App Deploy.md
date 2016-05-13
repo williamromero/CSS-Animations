@@ -254,4 +254,5 @@ dentro de la memoria de las rutas ssh, podemos borrarlo con el siguiente comando
   * https://launchschool.com/blog/setting-up-your-production-server-with-nginx-and-unicorn
   * https://gist.github.com/JamesDullaghan/5941259
   * Production Rails App Capistrano
+  * deploy rails 4 app unicorn nginx production server
 ```
