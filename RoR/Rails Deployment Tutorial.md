@@ -1,6 +1,6 @@
 ## RAILS DEPLOY 
-
-# Crear aplicación de Rails [Terminal]:
+<img style="heigth: 18px; width: 18px;" src="https://github.com/williamromero/graphic-resources/blob/master/Icons%20Computer-Server-01.png?raw=true"/> 
+* ![Computer Icon](https://github.com/williamromero/graphic-resources/blob/master/Icons%20Computer-Server-01.png?raw=true ) **Crear aplicación de Rails [Terminal]:**
 	rails new railsapp
 
 # Instalar las siguientes gemas [Terminal]:
