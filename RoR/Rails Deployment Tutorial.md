@@ -1,12 +1,12 @@
 ## RAILS DEPLOY 
 
-1. Crear aplicación de Rails [Terminal]:
+**1.** Crear aplicación de Rails [Terminal]:
 
     <pre>	
       rails new railsapp
     </pre>
 	
-2. Instalar las siguientes gemas [Terminal]:
+**2.** Instalar las siguientes gemas [Terminal]:
     
     <pre>
 		gem list  
@@ -14,7 +14,7 @@
 		gem <b>install puma</b>
 	</pre>
 
-3. Abrir archivo railsapp/Gemfile de aplicación:
+**3.** Abrir archivo railsapp/Gemfile de aplicación:
     <pre>
     	gem 'figaro'
 	    gem 'puma'
@@ -33,13 +33,13 @@
     	end
     </pre>
     
-4. Actualizar gemas en [Terminal]:
+**4.** Actualizar gemas en [Terminal]:
     
     <pre>
 	    bundle install
     </pre>
 
-5. Crear un STAGE de Producción [Terminal]:
+**5.** Crear un STAGE de Producción [Terminal]:
 
 	<pre>
 	    cap install <b>STAGES=production</b>
@@ -81,9 +81,9 @@
 	
 	</pre>
 
-# Abrir archivo railsapp/Capfile de aplicación, remover el signo '#':
+**6.** Abrir archivo **"railsapp/Capfile"** de aplicación, remover el **signo '#'**:
 
-	```
+	<pre>
 		# Load DSL and set up stages
 		require "capistrano/setup"
 
@@ -112,86 +112,96 @@
 
 		# Load custom tasks from 'lib/capistrano/tasks' if you have any defined
 		Dir.glob("lib/capistrano/tasks/*.rake").each { |r| import r }
-	```
+	</pre>
 
-# Abrir archivo "config/deploy.rb" de aplicación:
+**7** Abrir archivo **"config/deploy.rb"** de aplicación:
+    <pre>
+    	set :application, <b>'railsapp'</b>
+    	set :repo_url, <b>'git@github.com:williamromero/railsapp.git'</b> # Edit this to match your repository
+    	set :branch, <b>:master</b>
+    	set :deploy_to, <b>'/home/deploy/railsapp'</b>
+    	set :pty, true
+    	set :linked_files, <b>%w{config/database.yml config/application.yml}</b>
+    	set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system public/uploads}
+    	set :keep_releases, 5
+    	set :rvm_type, :user
+    	set :rvm_ruby_version, 'ruby-2.3.0' # Edit this if you are using MRI Ruby
+    
+    	set :puma_rackup, -> { File.join(current_path, 'config.ru') }
+    	set :puma_state, "#{shared_path}/tmp/pids/puma.state"
+    	set :puma_pid, "#{shared_path}/tmp/pids/puma.pid"
+    	set :puma_bind, "unix://#{shared_path}/tmp/sockets/puma.sock"    #accept array for multi-bind
+    	set :puma_conf, "#{shared_path}/puma.rb"
+    	set :puma_access_log, "#{shared_path}/log/puma_error.log"
+    	set :puma_error_log, "#{shared_path}/log/puma_access.log"
+    	set :puma_role, :app
+    	set :puma_env, fetch(:rack_env, fetch(:rails_env, 'production'))
+    	set :puma_threads, [0, 8]
+    	set :puma_workers, 0
+    	set :puma_worker_timeout, nil
+    	set :puma_init_active_record, true
+    	set :puma_preload_app, false
+    </pre>
+    
+**8** Abrir archivo **"railsapp/.gitignore"** de aplicación:
+    
+    <pre>
+	    config/database.yml
+    </pre>
+    
+**9** Crear el repositorio en Github y luego crear el repositorio en la linea de comandos [Terminal]:
+    
+    <pre>
+    	# Initialized empty Git repository in /Users/william/Desktop/AWS/railsapp/.git/
+    	git init
+    	# Agregar todos los archivos al repositorio remoto.
+    	git add .
+    	# Hacer el commit inicial.
+    	git commit -m 'Initialized commit'
+    	# Agregar el registro del git y agregarlo al de Github.
+    	git remote add origin git@github.com:williamromero/railsapp.git
+    	# Cargar los registros de Github.
+    	git push -u origin master
+    </pre>
 
-	set :application, 'railsapp'
-	set :repo_url, 'git@github.com:williamromero/railsapp.git' # Edit this to match your repository
-	set :branch, :master
-	set :deploy_to, '/home/deploy/railsapp'
-	set :pty, true
-	set :linked_files, %w{config/database.yml config/application.yml}
-	set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system public/uploads}
-	set :keep_releases, 5
-	set :rvm_type, :user
-	set :rvm_ruby_version, 'ruby-2.3.0' # Edit this if you are using MRI Ruby
+**10** Crear AWS EC2 Instance:
 
-	set :puma_rackup, -> { File.join(current_path, 'config.ru') }
-	set :puma_state, "#{shared_path}/tmp/pids/puma.state"
-	set :puma_pid, "#{shared_path}/tmp/pids/puma.pid"
-	set :puma_bind, "unix://#{shared_path}/tmp/sockets/puma.sock"    #accept array for multi-bind
-	set :puma_conf, "#{shared_path}/puma.rb"
-	set :puma_access_log, "#{shared_path}/log/puma_error.log"
-	set :puma_error_log, "#{shared_path}/log/puma_access.log"
-	set :puma_role, :app
-	set :puma_env, fetch(:rack_env, fetch(:rails_env, 'production'))
-	set :puma_threads, [0, 8]
-	set :puma_workers, 0
-	set :puma_worker_timeout, nil
-	set :puma_init_active_record, true
-	set :puma_preload_app, false
-
-# Abrir archivo "railsapp/.gitignore" de aplicación:
-
-	config/database.yml
-
-# Crear el repositorio en Github y luego crear el repositorio en la linea de comandos [Terminal]:
-
-	# Initialized empty Git repository in /Users/william/Desktop/AWS/railsapp/.git/
-	git init
-	# Agregar todos los archivos al repositorio remoto.
-	git add .
-	# Hacer el commit inicial.
-	git commit -m 'Initialized commit'
-	# Agregar el registro del git y agregarlo al de Github.
-	git remote add origin git@github.com:williamromero/railsapp.git
-	# Cargar los registros de Github.
-	git push -u origin master
-
-# Crear AWS EC2 Instance:
-
-	Elegir instancia: 
-		Ubuntu Server 14.04 LTS (HVM), SSD Volume Type - ami-9abea4fb
+	* Elegir instancia: 
+		+ Ubuntu Server 14.04 LTS (HVM), SSD Volume Type - ami-9abea4fb
 	
-	Seleccionar el tipo de instancia:	
-		t2.micro
+	* Seleccionar el tipo de instancia:	
+		+ t2.micro
 
-	Configurar detalles de instancia:
-		Next: Add Storage
+	* Configurar detalles de instancia:
+		+ Next: Add Storage
 
-	Elegir almacenamiento:
-		Next: Tag Instance
+	* Elegir almacenamiento:
+		+ Next: Tag Instance
 
-# Elegir el valor de llave y de tag:
+**11** Elegir el valor de llave y de tag:
+    
+    <pre>
+    	**Key:** 	Name
+    	**Value:** 	railsapp
+    </pre>
+    
+**12** Configurar un Security Group:
 
-	Key: 	Name
-	Value: 	railsapp
+	<pre>
+	    Elegir [x] un grupo de seguridad.
+		[x] <b>launch-wizard-3</b>
+    </pre>
 
-# Configurar un Security Group:
-
-	Elegir [x] un grupo de seguridad.
-
-		[x] launch-wizard-3
-
-# Presionar el botón Launch:
-
+**13** Presionar el botón Launch:
+    
+    <pre>
 	Elegir una "key-pair" nueva o existente:
 
 		# Choose an existing key pair
 		Select a key pair:
-			> webapp 
-
+			<b>&gt; webapp</b> 
+    </pre>
+    
 ## SERVER INSTALATION
 
 # Abrir la nueva instancia en Terminal:
