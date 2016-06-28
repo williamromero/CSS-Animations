@@ -1,50 +1,44 @@
 ## RAILS DEPLOY 
 
 **1.** Crear aplicación de Rails [Terminal]:
-
     <pre>	
       rails new railsapp
     </pre>
 	
 **2.** Instalar las siguientes gemas [Terminal]:
-    
-    <pre>
+   	<pre>
 		gem list  
 		gem <b>install figaro</b>
 		gem <b>install puma</b>
-	</pre>
+   	</pre>
 
 **3.** Abrir archivo railsapp/Gemfile de aplicación:
     <pre>
-    	gem 'figaro'
-	    gem 'puma'
-
+    	gem <b>'figaro'</b>
+	    gem <b>'puma'</b>
     	group :development do
-    	  # Access an IRB console on exception pages or by using <%= console %> in views
-    	  gem 'web-console', '~> 2.0'
+    	  # Access an IRB console on exception pages or by using &lt;%= console %&gt; in views
+    	  gem 'web-console', '~&gt; 2.0'
     		gem 'capistrano'
     		gem 'capistrano3-puma'
     		gem 'capistrano-rails', require: false
     		gem 'capistrano-bundler', require: false
     		gem 'capistrano-rvm'
-    
     	  # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
     	  gem 'spring'
     	end
-    </pre>
-    
+	</pre>
+
 **4.** Actualizar gemas en [Terminal]:
-    
     <pre>
 	    bundle install
     </pre>
 
 **5.** Crear un STAGE de Producción [Terminal]:
-
 	<pre>
 	    cap install <b>STAGES=production</b>
 	</pre>
-	
+	&nbsp;
 	<pre>
 		mkdir -p config/deploy
 		create config/deploy.rb
@@ -52,44 +46,42 @@
 		mkdir -p lib/capistrano/tasks
 		create Capfile
 		Capified
-	
+	&nbsp;
 		 _    _                              _
 		| |  | |                            (_)
 		| |__| | __ _ _ __ _ __ _____      ___  ___
 		|  __  |/ _  | '__| '__/ _ \ \ /\ / / |/ _ \
 		| |  | | (_| | |  | | | (_) \ V  V /| | (_) |
 		|_|  |_|\__,_|_|  |_|  \___/ \_/\_(_)_|\___/
-
+	&nbsp;
 		- Continuous Integration & Deployment
 		      Built by the team behind Capistrano
-
+	&nbsp;
 		- Learn more at http://hrw.io/cap-for-teams
-
-
+	&nbsp;
 		- Free for small projects!
-
+	&nbsp;
 		- Test, deploy and collaborate online easily
 		   using tools you already know and love!
-
+	&nbsp;
 		- Trigger tasks automatically based on Git changes
 		  and webhooks. Get notified by email, slack, etc.
-
+	&nbsp;
 		- Works seamlessly for PHP, Node.js, Ansible, Python, Go,
 		  Capistrano and more!
-
+	&nbsp;
 		Try it now?  (Yes/no): Aborting: timeout...
-	
+	&nbsp;
 	</pre>
 
 **6.** Abrir archivo **"railsapp/Capfile"** de aplicación, remover el **signo '#'**:
-
 	<pre>
 		# Load DSL and set up stages
 		require "capistrano/setup"
-
+		&nbsp;
 		# Include default deployment tasks
 		require "capistrano/deploy"
-
+		&nbsp;
 		# Include tasks from other gems included in your Gemfile
 		#
 		# For documentation on these, see for example:
@@ -101,20 +93,20 @@
 		#   https://github.com/capistrano/rails
 		#   https://github.com/capistrano/passenger
 		#
-		 require 'capistrano/rvm'
+		  require 'capistrano/rvm'
 		# require 'capistrano/rbenv'
 		# require 'capistrano/chruby'
-		 require 'capistrano/bundler'
-		 require 'capistrano/rails/assets'
-		 require 'capistrano/rails/migrations'
-		 require 'capistrano/puma'
+		  require 'capistrano/bundler'
+		  require 'capistrano/rails/assets'
+		  require 'capistrano/rails/migrations'
+		  require 'capistrano/puma'
 		# require 'capistrano/passenger'
-
+		&nbsp;
 		# Load custom tasks from 'lib/capistrano/tasks' if you have any defined
 		Dir.glob("lib/capistrano/tasks/*.rake").each { |r| import r }
 	</pre>
 
-**7** Abrir archivo **"config/deploy.rb"** de aplicación:
+**7.** Abrir archivo **"config/deploy.rb"** de aplicación:
     <pre>
     	set :application, <b>'railsapp'</b>
     	set :repo_url, <b>'git@github.com:williamromero/railsapp.git'</b> # Edit this to match your repository
@@ -126,7 +118,7 @@
     	set :keep_releases, 5
     	set :rvm_type, :user
     	set :rvm_ruby_version, 'ruby-2.3.0' # Edit this if you are using MRI Ruby
-    
+    &nbsp;
     	set :puma_rackup, -> { File.join(current_path, 'config.ru') }
     	set :puma_state, "#{shared_path}/tmp/pids/puma.state"
     	set :puma_pid, "#{shared_path}/tmp/pids/puma.pid"
@@ -143,14 +135,12 @@
     	set :puma_preload_app, false
     </pre>
     
-**8** Abrir archivo **"railsapp/.gitignore"** de aplicación:
-    
+**8.** Abrir archivo **"railsapp/.gitignore"** de aplicación:
     <pre>
 	    config/database.yml
     </pre>
     
-**9** Crear el repositorio en Github y luego crear el repositorio en la linea de comandos [Terminal]:
-    
+**9.** Crear el repositorio en Github y luego crear el repositorio en la linea de comandos [Terminal]:
     <pre>
     	# Initialized empty Git repository in /Users/william/Desktop/AWS/railsapp/.git/
     	git init
@@ -164,39 +154,34 @@
     	git push -u origin master
     </pre>
 
-**10** Crear AWS EC2 Instance:
+**10.** Crear AWS EC2 Instance:
 
-	* Elegir instancia: 
-		+ Ubuntu Server 14.04 LTS (HVM), SSD Volume Type - ami-9abea4fb
+* Elegir instancia: 
+	+ Ubuntu Server 14.04 LTS (HVM), SSD Volume Type - ami-9abea4fb
 	
-	* Seleccionar el tipo de instancia:	
-		+ t2.micro
+* Seleccionar el tipo de instancia:	
+	+ t2.micro
 
-	* Configurar detalles de instancia:
-		+ Next: Add Storage
+* Configurar detalles de instancia:
+	+ Next: Add Storage
 
-	* Elegir almacenamiento:
-		+ Next: Tag Instance
+* Elegir almacenamiento:
+	+ Next: Tag Instance
 
-**11** Elegir el valor de llave y de tag:
-    
+**11.** Elegir el valor de llave y de tag:
     <pre>
     	**Key:** 	Name
     	**Value:** 	railsapp
     </pre>
-    
-**12** Configurar un Security Group:
-
+**12.** Configurar un Security Group:
 	<pre>
 	    Elegir [x] un grupo de seguridad.
 		[x] <b>launch-wizard-3</b>
     </pre>
-
-**13** Presionar el botón Launch:
-    
+**13.** Presionar el botón Launch:    
     <pre>
 	Elegir una "key-pair" nueva o existente:
-
+	&nbsp;
 		# Choose an existing key pair
 		Select a key pair:
 			<b>&gt; webapp</b> 
@@ -204,150 +189,176 @@
     
 ## SERVER INSTALATION
 
-# Abrir la nueva instancia en Terminal:
+**1.** Abrir la nueva instancia en Terminal:
+	<pre>
+		ssh -i "webapp.pem" <b>ubuntu@ec2-52-36-26-81.us-west-2.compute.amazonaws.com</b>
+	</pre>
 
-	ssh -i "webapp.pem" ubuntu@ec2-52-36-26-81.us-west-2.compute.amazonaws.com
+**2.** Actualizar servidor:
+	<pre>
+		sudo apt-get update && sudo apt-get -y upgrade
+	</pre>
 
-# Actualizar servidor:
+**3. Crear el usuario DEPLOY:**
+	<pre>
+		sudo useradd -d /home/deploy -m deploy
+	</pre>
 
-	sudo apt-get update && sudo apt-get -y upgrade
+**4.** Cambiar el password del usuario DEPLOY:
+	<pre>
+		sudo passwd deploy
+		#PASS: production
+	</pre>
 
-# Crear el usuario DEPLOY:
-
-	sudo useradd -d /home/deploy -m deploy
-
-# Cambiar el password del usuario DEPLOY:
-
-	sudo passwd deploy
-	#PASS: production
-
-# Otorgar todos los accesos del usuario DEPLOY:
-
+**5.** Otorgar todos los accesos del usuario DEPLOY:
+	<pre>
 	sudo visudo
 	```
 		root    ALL=(ALL:ALL) ALL
 		deploy  ALL=(ALL:ALL) ALL
 	```
+	</pre>
+**6.** Ingresar con el usuario DEPLOY:
+	<pre>
+		su - deploy
+	</pre>
 
-# Ingresar con el usuario DEPLOY:
+**7.** Crear la clave de seguridad del servidor:
+	<pre>
+		ssh-keygen
+	</pre>
 
-	su - deploy
+**8.** Generar la clave de seguridad:
+	<pre>
+		cat ~/.ssh/id_rsa.pub
+	</pre>
 
-# Crear la clave de seguridad del servidor:
+**9.** Guardar SSH-KEY - Github/SSH and GPG keys/ AWS Ubuntu Server - Deploy User:
+	<pre>
+		ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDoT2TD5R09yBwP1jGWeXoTk4zCgVB5jPt/c5kWXvKAQwGZk+fgWaxaX8dFDmOvF/pEQGHsJuLw6R0PQWNGccf4DWa99gG7MpG5Hxn9C88ODekCLQHszMIwKrfeEuekvsikuY/XxqizAB72y0/TXY3Ju3+5s8wOsMURKskQw0aeBn1T7duxioADCrLRt1MLRJi2OKWG4uxapoGPlWjK42aO1g5VNzzcrjCUKEYVZdDCLXKvKlqGV/cErlwohYLvouSWP8PY7ypdC9bdqJV/yBr1AbuW8TnicbEjD3u7/zBUJF8HZLPJzfG8YLs+mJdZXyIqarvXBWfuQY0FfQ0t0swt deploy@ip-172-31-23-70
+	</pre>
 
-	ssh-keygen
+**10.** Hacer la prueba de autenticidad de conexión del host con Github:
+	<pre>	
+		ssh -T git@github.com
+	</pre>
 
-# Generar la clave de seguridad:
-
-	cat ~/.ssh/id_rsa.pub
-
-# Guardar SSH-KEY - Github/SSH and GPG keys/ AWS Ubuntu Server - Deploy User:
-
-	ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDoT2TD5R09yBwP1jGWeXoTk4zCgVB5jPt/c5kWXvKAQwGZk+fgWaxaX8dFDmOvF/pEQGHsJuLw6R0PQWNGccf4DWa99gG7MpG5Hxn9C88ODekCLQHszMIwKrfeEuekvsikuY/XxqizAB72y0/TXY3Ju3+5s8wOsMURKskQw0aeBn1T7duxioADCrLRt1MLRJi2OKWG4uxapoGPlWjK42aO1g5VNzzcrjCUKEYVZdDCLXKvKlqGV/cErlwohYLvouSWP8PY7ypdC9bdqJV/yBr1AbuW8TnicbEjD3u7/zBUJF8HZLPJzfG8YLs+mJdZXyIqarvXBWfuQY0FfQ0t0swt deploy@ip-172-31-23-70
-
-# Hacer la prueba de autenticidad de conexión del host con Github:
-
-	ssh -T git@github.com
-
-
-
-## IR AL ORDENADOR DE NUEVO PARA TOMAR LA LLAVE SSH:
-
-	cat ~/.ssh/id_rsa.pub
-
-	ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCoBePMIcyWVVhbDsfbzI7NC9ZEDZmt/wWGsUiYBUpQnvrtGceUXjwOfr408bV06HcRS/taFRgZ7bZmzPc05k9VG0tVRmnIdKgtX8I6lyQHAvIzrXrxda1Xiga6E9wElMg65XTwfyX+qj+cK3JhwvspCK1WFH1+ZcGBBAV90BljQXbs06010P24FBtJZDjmqewBB0aVuht8U3APAlKr63a+XzyjQHbpT8CusC5q7Noe6PjCWF9zLekeb4bnM5mK36tUv0RDv063sMHb2tbnjp396tlF/1TBFsLINPwOZX4c/yh9qbHP6i8SazhA0YGMN9XL59nWk9F3NUA6zHTcdtp3 william@162.0.10.in-addr.arpa
-
-## IR AL SERVIDOR Y CREAR UN ARCHIVO:
-
-	# Guardar llave SSH del ordenador en servidor:
-
-		nano ~/.ssh/authorized_keys
-
-	# Copiar el registro SSH en este archivo, para automatizar la conexión.
-
+**11.** Ir al **ordenador** de nuevo para tomar la llave SSH:
+	<pre>
+		cat ~/.ssh/id_rsa.pub
+	</pre>
+	<pre>	
 		ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCoBePMIcyWVVhbDsfbzI7NC9ZEDZmt/wWGsUiYBUpQnvrtGceUXjwOfr408bV06HcRS/taFRgZ7bZmzPc05k9VG0tVRmnIdKgtX8I6lyQHAvIzrXrxda1Xiga6E9wElMg65XTwfyX+qj+cK3JhwvspCK1WFH1+ZcGBBAV90BljQXbs06010P24FBtJZDjmqewBB0aVuht8U3APAlKr63a+XzyjQHbpT8CusC5q7Noe6PjCWF9zLekeb4bnM5mK36tUv0RDv063sMHb2tbnjp396tlF/1TBFsLINPwOZX4c/yh9qbHP6i8SazhA0YGMN9XL59nWk9F3NUA6zHTcdtp3 william@162.0.10.in-addr.arpa
+	</pre>
 
-## AHORA PODEMOS ENTRAR SIN CLAVE DESDE CUALQUIER ORDENADOR SOLO PONIENDO LO SIGUIENTE:
+**12.** Ir al **servidor** y crear un archivo:
+&nbsp;
++ Guardar llave SSH del ordenador en servidor:
+	<pre>
+		nano ~/.ssh/authorized_keys
+	</pre>
+	&nbsp;
 
-	ssh deploy@52.36.26.81
-	Ahora podemos ingresar al servidor sin clave.
-	Ver referencia: https://www.digitalocean.com/community/tutorials/how-to-configure-ssh-key-based-authentication-on-a-linux-server
+**13.** Copiar el registro SSH en este archivo, para automatizar la conexión.
+	<pre>
+		ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCoBePMIcyWVVhbDsfbzI7NC9ZEDZmt/wWGsUiYBUpQnvrtGceUXjwOfr408bV06HcRS/taFRgZ7bZmzPc05k9VG0tVRmnIdKgtX8I6lyQHAvIzrXrxda1Xiga6E9wElMg65XTwfyX+qj+cK3JhwvspCK1WFH1+ZcGBBAV90BljQXbs06010P24FBtJZDjmqewBB0aVuht8U3APAlKr63a+XzyjQHbpT8CusC5q7Noe6PjCWF9zLekeb4bnM5mK36tUv0RDv063sMHb2tbnjp396tlF/1TBFsLINPwOZX4c/yh9qbHP6i8SazhA0YGMN9XL59nWk9F3NUA6zHTcdtp3 william@162.0.10.in-addr.arpa
+	</pre>
 
-## INSTALAR GIT EN EL SERVIDOR:
+**14.** Ahora podemos entrar sin clave desde cualquier **ordenador** solo poniendo lo siguiente:
+	&nbsp;
+	<pre>
+		ssh deploy@52.36.26.81
+		Ahora podemos ingresar al servidor sin clave.
+		Ver referencia: https://www.digitalocean.com/community/tutorials/how-to-configure-ssh-key-based-authentication-on-a-linux-server
+	</pre>
 
-	sudo apt-get install git
+## PACKAGES INSTALATION:	
 
-# INSTALAR NGINX EN EL SERVIDOR:
+**1.*** Instalar GIT en el **Servidor**:
+	<pre>
+		sudo apt-get install git
+	</pre>
 
-	sudo apt-get install nginx
+**2.** Instalar **NGINX** en el **servidor**::
+	<pre>
+		sudo apt-get install nginx
+	</pre>
+	&nbsp;
+**3.** Editar el registro del Virtual Host con NGINX
+	<pre>
+		sudo nano /etc/nginx/sites-available/default
+	</pre>
 
-# EDITAR EL REGISTRO DEL VIRTUAL HOST CON NGINX
+**4.** Agregar el símbolo **"#"** a todo lo que contiene el archivo para anular todos los campos y copiar el siguiente código:
+	&nbsp;
+	<pre>
+		upstream app {
+		  # Path to Puma SOCK file, as defined previously
+		  server unix:/home/deploy/urlshortner/shared/tmp/sockets/puma.sock fail_timeout=0;
+		}
+		server {
+		  listen 80;
+		  server_name localhost;
+		  root /home/deploy/urlshortner/current/public;
+		  try_files $uri/index.html $uri @app;
+		  location / {
+		    proxy_set_header X-Forwarded-Proto $scheme;
+		    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+		    proxy_set_header X-Real-IP $remote_addr;
+		    proxy_set_header Host $host;
+		    proxy_redirect off;
+		    proxy_http_version 1.1;
+		    proxy_set_header Connection '';
+		    proxy_pass http://app;
+		  }
+		  location ~ ^/(assets|fonts|system)/|favicon.ico|robots.txt {
+		    gzip_static on;
+		    expires max;
+		    add_header Cache-Control public;
+		  }
+		  error_page 500 502 503 504 /500.html;
+		  client_max_body_size 4G;
+		  keepalive_timeout 10;
+		}  
+		Status API Training Shop Blog About
+	</pre>
 
-	sudo nano /etc/nginx/sites-available/default
-
-# AGREGAR SÍMBOLO "#" EN EL ÁREA DE SERVER A TODOS LAS LINEAS QUE ESTÁN SIN NADA
-# PARA ANULAR TODOS LOS CAMPOS Y COPIAR EL SIGUIENTE CÓDIGO
-
-	upstream app {
-	  # Path to Puma SOCK file, as defined previously
-	  server unix:/home/deploy/urlshortner/shared/tmp/sockets/puma.sock fail_timeout=0;
-	}
-	server {
-	  listen 80;
-	  server_name localhost;
-	  root /home/deploy/urlshortner/current/public;
-	  try_files $uri/index.html $uri @app;
-	  location / {
-	    proxy_set_header X-Forwarded-Proto $scheme;
-	    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-	    proxy_set_header X-Real-IP $remote_addr;
-	    proxy_set_header Host $host;
-	    proxy_redirect off;
-	    proxy_http_version 1.1;
-	    proxy_set_header Connection '';
-	    proxy_pass http://app;
-	  }
-	  location ~ ^/(assets|fonts|system)/|favicon.ico|robots.txt {
-	    gzip_static on;
-	    expires max;
-	    add_header Cache-Control public;
-	  }
-	  error_page 500 502 503 504 /500.html;
-	  client_max_body_size 4G;
-	  keepalive_timeout 10;
-	}  
-	Status API Training Shop Blog About
-
-## INSTALAR EN EL SERVIDOR POSTGRESQL
-
+**5.** Instalar el servidor de POSTGRESQL
+<pre>
 	sudo apt-get install postgresql postgresql-contrib libpq-dev
+</pre>
+	&nbsp;
+	+ CREAR USUARIO DE POSTGRESQL COMO SUPERUSUARIO
+	<pre>
+		sudo -u postgres createuser -s deploy
+	</pre>
+	&nbsp;
+	+ INSTALAR PSQL PARA PODER ACCEDER A LA BASE DE DATOS MEDIANTE POSTGRESQL CONSOLE
+	<pre>
+		sudo -u postgres psql
+	</pre>
+	&nbsp;	
+	+ REGISTRAR EL PASSWORD
+	<pre>
+		postgres=# \password deploy
+			Enter new password: production
+			Enter it again: production
+		postgres=#
+	</pre>
+	&nbsp;		
+	+ SALIR DE POSTGRESQL
+	<pre>
+		\q
+	</pre>
+	&nbsp;
+	+ Crear **base de datos** en POSTGRESQL:
+	<pre>
+		sudo -u postgres createdb -O deploy deploy_production
+									 *		*	
+									 USER   DB NAME
+	</pre>
 
-## CREAR USUARIO DE POSTGRESQL COMO SUPERUSUARIO
-
-	sudo -u postgres createuser -s deploy
-
-## INSTALAR PSQL PARA PODER ACCEDER A LA BASE DE DATOS MEDIANTE POSTGRESQL CONSOLE
-
-	sudo -u postgres psql
-
-## REGISTRAR EL PASSWORD
-
-	postgres=# \password deploy
-		Enter new password: production
-		Enter it again: production
-	postgres=#
-
-## SALIR DE POSTGRESQL
-
-	\q
-
-## CREAR BASE DE DATOS EN POSTGRESQL
-
-	sudo -u postgres createdb -O deploy deploy_production
-								 *		*	
-								 USER   DB NAME
-								 
-## CREAR LA BASE DE DATOS EN MYSQL
+**7.** Crear la **base de datos** en MYSQL
 	<pre>
 		sudo apt-get install mysql-server mysql-client libmysqlclient-dev
 	</pre>
@@ -356,31 +367,35 @@
 		Insert your user password
 	</pre>
 	
-## INSTALAR LA VERSION FIRMADA DE RVM - El RVM a partir de la versión 1.26 introduce versiones firmadas y comprobación automática de las mismas. Para ello necesitamos instalar dicha firma. En caso contrario podría darnos problemas al instalar RVM. http://www.rubyonrails.org.es/instala.html
+**8.** INSTALAR LA VERSION FIRMADA DE RVM - El RVM a partir de la versión 1.26 introduce versiones firmadas y comprobación automática de las mismas. Para ello necesitamos instalar dicha firma. En caso contrario podría darnos problemas al instalar RVM. http://www.rubyonrails.org.es/instala.html
+	<pre>
+		gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 
+	</pre>
 
-	gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 
-
-## LUEGO INSTALAR LA ÚLTIMA VERSIÓN ESTABLE DE RVM
-
-	\curl -sSL https://get.rvm.io | bash -s stable --rails --ruby
-
+**9.** LUEGO INSTALAR LA ÚLTIMA VERSIÓN ESTABLE DE RVM
+	<pre>
+		\curl -sSL https://get.rvm.io | bash -s stable --rails --ruby
+	</pre>
+	&nbsp;
 	* To start using RVM you need to run `source /home/deploy/.rvm/scripts/rvm`
     in all your open shell windows, in rare cases you need to reopen all shell windows.
 
-## SALIR DEL USUARIO DEPLOY PARA PROBAR QUE SE HAYA INSTALADO Y VOLVER A ENTRAR
+**10.** Salir del **"usuario DEPLOY"** para probar que se haya instalado y volver a entrar:
+	<pre>
+		deploy@ip-172-31-23-70:~$ exit
+		logout
+		ubuntu@ip-172-31-23-70:~$ su - deploy
+		Password: 
+		deploy@ip-172-31-23-70:~$ rvm -v
+		rvm 1.27.0 (latest) by Wayne E. Seguin <wayneeseguin@gmail.com>, Michal Papis <mpapis@gmail.com> [https://rvm.io/]
+	</pre>
 
-	deploy@ip-172-31-23-70:~$ exit
-	logout
-	ubuntu@ip-172-31-23-70:~$ su - deploy
-	Password: 
-	deploy@ip-172-31-23-70:~$ rvm -v
-	rvm 1.27.0 (latest) by Wayne E. Seguin <wayneeseguin@gmail.com>, Michal Papis <mpapis@gmail.com> [https://rvm.io/]
+**11.** Ahora instalar **BUNDLER** para manejar las gemas:
+	<pre>
+		gem install bundler --no-ri --no-rdoc
+	</pre>
 
-## AHORA INSTALAR BUNDLER PARA MANEJAR LAS GEMAS
-
-	gem install bundler --no-ri --no-rdoc
-
-## IR AL GIT REMOTO DEL PROYECTO Y VISUALIZAR LOS SIGUIENTES DATOS EN EL ARCHIVO
+**12.** Ir al GIT REMOTO del proyecto y visualizar los siguientes datos en el archivo:
 ## CONFIG/DEPLOY.RB
 
 	set :application, 'railsapp'
