@@ -6,39 +6,46 @@
       rails new railsapp
     </pre>
 	
-** Instalar las siguientes gemas [Terminal]:**
-	<pre>
+2. Instalar las siguientes gemas [Terminal]:
+    
+    <pre>
 		gem list  
 		gem <b>install figaro</b>
 		gem <b>install puma</b>
 	</pre>
-# Abrir archivo railsapp/Gemfile de aplicación:
 
-	gem 'figaro'
-	gem 'puma'
+3. Abrir archivo railsapp/Gemfile de aplicación:
+    <pre>
+    	gem 'figaro'
+	    gem 'puma'
 
-	group :development do
-	  # Access an IRB console on exception pages or by using <%= console %> in views
-	  gem 'web-console', '~> 2.0'
-		gem 'capistrano'
-		gem 'capistrano3-puma'
-		gem 'capistrano-rails', require: false
-		gem 'capistrano-bundler', require: false
-		gem 'capistrano-rvm'
+    	group :development do
+    	  # Access an IRB console on exception pages or by using <%= console %> in views
+    	  gem 'web-console', '~> 2.0'
+    		gem 'capistrano'
+    		gem 'capistrano3-puma'
+    		gem 'capistrano-rails', require: false
+    		gem 'capistrano-bundler', require: false
+    		gem 'capistrano-rvm'
+    
+    	  # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
+    	  gem 'spring'
+    	end
+    </pre>
+    
+4. Actualizar gemas en [Terminal]:
+    
+    <pre>
+	    bundle install
+    </pre>
 
-	  # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
-	  gem 'spring'
-	end
+5. Crear un STAGE de Producción [Terminal]:
 
-# Actualizar gemas en [Terminal]:
-
-	bundle install
-
-# Crear un STAGE de Producción [Terminal]:
-
-	cap install STAGES=production
+	<pre>
+	    cap install <b>STAGES=production</b>
+	</pre>
 	
-	```
+	<pre>
 		mkdir -p config/deploy
 		create config/deploy.rb
 		create config/deploy/production.rb
@@ -72,7 +79,7 @@
 
 		Try it now?  (Yes/no): Aborting: timeout...
 	
-	```
+	</pre>
 
 # Abrir archivo railsapp/Capfile de aplicación, remover el signo '#':
 
