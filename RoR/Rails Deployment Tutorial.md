@@ -1,13 +1,15 @@
 ## RAILS DEPLOY 
-<img style="heigth: 18px; width: 18px;" src="https://github.com/williamromero/graphic-resources/blob/master/Icons%20Computer-Server-01.png?raw=true"/> 
-* ![Computer Icon](https://github.com/williamromero/graphic-resources/blob/master/Icons%20Computer-Server-01.png?raw=true ) **Crear aplicación de Rails [Terminal]:**
-	rails new railsapp
-
-# Instalar las siguientes gemas [Terminal]:
-	gem list
-	gem install figaro
-	gem install puma
-
+**Crear aplicación de Rails [Terminal]:**
+	<pre>	
+		rails new railsapp
+	</pre>
+	
+** Instalar las siguientes gemas [Terminal]:**
+	<pre>
+		gem list  
+		gem <b>install figaro</b>
+		gem <b>install puma</b>
+	</pre>
 # Abrir archivo railsapp/Gemfile de aplicación:
 
 	gem 'figaro'
@@ -325,7 +327,16 @@
 	sudo -u postgres createdb -O deploy deploy_production
 								 *		*	
 								 USER   DB NAME
-
+								 
+## CREAR LA BASE DE DATOS EN MYSQL
+	<pre>
+		sudo apt-get install mysql-server mysql-client libmysqlclient-dev
+	</pre>
+** New password for the MySQL "root" user: 
+	<pre>
+		Insert your user password
+	</pre>
+	
 ## INSTALAR LA VERSION FIRMADA DE RVM - El RVM a partir de la versión 1.26 introduce versiones firmadas y comprobación automática de las mismas. Para ello necesitamos instalar dicha firma. En caso contrario podría darnos problemas al instalar RVM. http://www.rubyonrails.org.es/instala.html
 
 	gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 
