@@ -539,3 +539,7 @@
 * https://eggerapps.at/postico/<br/>
 * http://postgresapp.com/<br/>
 * https://www.mysql.com/products/workbench/<br/>
+
+### MYSQL:
+&nbsp;
+* https://gist.github.com/hofmannsven/9164408	
