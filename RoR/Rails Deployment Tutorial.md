@@ -379,7 +379,7 @@
 	&nbsp;
 	* To start using RVM you need to run `source /home/deploy/.rvm/scripts/rvm`
     in all your open shell windows, in rare cases you need to reopen all shell windows.
-
+	&nbsp;
 **10.** Salir del **"usuario DEPLOY"** para probar que se haya instalado y volver a entrar:
 	<pre>
 		deploy@ip-172-31-23-70:~$ exit
@@ -389,154 +389,153 @@
 		deploy@ip-172-31-23-70:~$ rvm -v
 		rvm 1.27.0 (latest) by Wayne E. Seguin <wayneeseguin@gmail.com>, Michal Papis <mpapis@gmail.com> [https://rvm.io/]
 	</pre>
-
+	&nbsp;
 **11.** Ahora instalar **BUNDLER** para manejar las gemas:
 	<pre>
 		gem install bundler --no-ri --no-rdoc
 	</pre>
+	&nbsp;
+**12.** Ir al GIT en el ordenador del proyecto y visualizar los siguientes datos en el archivo:
+	<pre>
+		config/deploy.rb
+	</pre>
+	<pre>
+		set :application, <b>'railsapp'</b>
+		set :repo_url, <b>'git@github.com:williamromero/railsapp.git'</b> # Edit this to match your repository
+		set :branch, <b>:master</b>
+		set :deploy_to, <b>'/home/deploy/railsapp'</b>
+	</pre>
+	&nbsp;
+**13.** Luego volver al servidor y buscar la carpeta en la que nos situamos y luego debemos ir al folder:
+	<pre>
+		pwd
+		/home/deploy/
+	</pre>
+	&nbsp;
+**14.** A continuación, deberemos de crear un folder en el que se alojará el proyecto de GITHUB:
+	<pre>
+		mkdir railsapp
+	</pre>
+	&nbsp;
+**15.** Lueg, dentro de esa carpeta, deberemos de crear otros dos folders al que hará referencia la configuraición del servidor de aplicaciones PUMA mediante el archivo **"config/deploy.rb"**:
+	<pre>
+		mkdir -p railsapp/shared/config
+	</pre>
+	&nbsp;
+**16.** Ahora dentro de la carpeta **railsapp/shared/config**, crearemos los archivos que reemplazará del proyecto en el ordenador para que pueda conectarse con el **SERVIDOR DE APLICACIONES PUMA.**
+	<pre>
+		nano urlshortner/shared/config/database.yml
+	</pre>
+**16.** En este archivo, introduciremos la configuración de la Base de Datos:
+	<pre>
+		<b>production:</b>
+		  adapter: postgresql
+		  encoding: unicode
+		  database: deploy_production
+		  username: deploy
+		  password: production
+		  host: localhost
+		  port: 5432
+	</pre>
 
-**12.** Ir al GIT REMOTO del proyecto y visualizar los siguientes datos en el archivo:
-## CONFIG/DEPLOY.RB
+**17.** Ahora dentro de la misma carpeta, crear el archivo **"application.yml"**:
+	<pre>
+		nano application.yml
+	</pre>
+	&nbsp;
+**18.** Desde la aplicación copiada en el ordenador, crear una [**SECRET KEY**](http://www.jamesbadger.ca/2012/12/18/generate-new-secret-token/) para el ambiente PRODUCTION:
+	<pre>
+		rake secret
+	</pre>
 
-	set :application, 'railsapp'
-	set :repo_url, 'git@github.com:williamromero/railsapp.git' # Edit this to match your repository
-	set :branch, :master
-	set :deploy_to, '/home/deploy/railsapp'
+**19.** Ahora deberemos de colocarla en el servidor, en el archivo **application.yml** y copial la SECRET_KEY_BASE:
+	<pre>
+		SECRET_KEY_BASE: "cafe70dc504ce903398ed6ba175620b405a1f1f5773f4d72dcce99045ba15e0986918069d2599535ab54544bf33ddc2d2a9dcbd54112e86d4362e926a2133920"	
+	</pre>
+	&nbsp;		
+**20.** Ahora en el **servidor**, ir al archivo **"config/deploy/production.rb"** y copiar la siguiente linea:
+	<pre>
+		server <b>'52.36.26.81'</b>, user: <b>'deploy'</b>, roles: %w{web app db}
+				IP DNS        USER           
+	</pre>
+**21.** Ahora ir a la aplicación en el ordenador e ingresar el siguiente comando y esperar la clonación de toda la aplicación al servidor:
+	<pre>
+		cap production deploy
+	</pre>
 
-## LUEGO VOLVER AL SERVIDOR Y VER EN QUE CARPETA NOS ENCONTRAMOS, DEBEMOS DE 
-## IR A LA CARPETA /home/deploy/
+**22.** Esto hará saltar un error porque el archivo **UGLIFIER** no funciona como JS, entonces hay que instalar **NODEJS** en el servidor:
+	<pre>
+		sudo apt-get install <b>nodejs</b>
+	</pre>
 
-	pwd
-	/home/deploy/
+**23.** Luego de instlar **NODEJS** en el servidor, vamos a la computadora remota y volvemos a ejecutar el comando de **capistrano** para hacer el deploy:
+	<pre>
+		cap production deploy
+	</pre>
 
-## AHORA VAMOS A CREAR EL FOLDER EN EL QUE SE DEPOSITARÁ EL PROYECTO DE GITHUB
-
-	mkdir railsapp
-
-## AHORA DENTRO DE ESA CARPETA, CREAR OTROS DOS FOLDERS AL QUE HARÁ REFERENCIA LA CONFIGURACIÓN DEL
-## SERVIDOR DE APLICACIONES PUMA MEDIANTE EL ARCHIVO "config/deploy.rb"
-
-	mkdir -p railsapp/shared/config
-
-## AHORA DENTRO DE LA CARPETA railsapp/shared/config CREAREMOS LOS ARCHIVOS QUE REEMPLAZARÁ DEL PROYECTO REMOTO
-## PARA QUE PUEDA CONECTARSE CON EL SERVIDOR DE APLICACIONES PUMA
-
-	nano urlshortner/shared/config/database.yml
-
-## EN ESTE ARCHIVO INTRODUCIR LA CONFIGURACIÓN DE LA BASE DE DATOS:
-
-	production:
-	  adapter: postgresql
-	  encoding: unicode
-	  database: deploy_production
-	  username: deploy
-	  password: production
-	  host: localhost
-	  port: 5432
-
-## AHORA DENTRO DE LA MISMA CARPETA, CREAR EL ARCHIVO application.yml:
-
-	nano application.yml
-
-## DESDE LA APLICACIÓN COPIADA EN REMOTO, CREAR UNA SECRET KEY PARA PRODUCTION
-## http://www.jamesbadger.ca/2012/12/18/generate-new-secret-token/
-
-	rake secret
-
-### AHORA COLOCARLA EN EL SERVIDOR, EN EL ARCHIVO application.yml Y COPIAR LA SECRET_KEY_BASE
-
-	SECRET_KEY_BASE: "cafe70dc504ce903398ed6ba175620b405a1f1f5773f4d72dcce99045ba15e0986918069d2599535ab54544bf33ddc2d2a9dcbd54112e86d4362e926a2133920"	
-
-## AHORA EN EL SERVIDOR, IR AL ARCHIVO config/deploy/production.rb Y COPIAR LA SIGUIENTE LINEA
-
-	server '52.36.26.81', user: 'deploy', roles: %w{web app db}
-			IP DNS        USER           
-
-## AHORA IR A LA APLICACIÓN REMOTA E INGRESAR EL SIGUIENTE COMANDO Y ESPERAR LA CLONACIÓN DE TODA LA APLICACIÓN AL SERVIDOR:
-
-	cap production deploy
-
-## ESTO HARÁ SALTAR UN ERROR PORQUE EL ARCHIVO UGLIFIER NO FUNCIONA COMO JS, ENTONCES HAY QUE INSTALAR NODEJS EN EL SERVIDOR
-
-	sudo apt-get install nodejs
-
-## LUEGO DE INSTALAR NODEJS EN SERVIDOR, VAMOS A LA COMPUTADORA REMOTA Y VOLVEMOS A EJECUTAR EL COMANDO DE CAPISTRANO PARA HACER EL DEPLOY
-
-	cap production deploy
-
-## SI APARECE UN PROBLEMA POR LA GEMA PG EN LA COMPUTADORA, PUEDE INSTALARSE DE DOS MANERAS:
-
-	gem install pg / gem install pg -- --with-pg-config=/usr/local/bin/pg_config
-
+**24.** Si aparece un problema por la gema **PG** en la computadora, puede instalarse de dos maneras:
+	<pre>
+		gem install pg / gem install pg -- --with-pg-config=/usr/local/bin/pg_config
+	</pre>
 	ó
- 
-	brew install libpqxx
+ 	<pre>
+		brew install libpqxx
+	</pre>
 
-## LUEGO DE ESO, AGREGARLA AL GEMFILE DEL PROYECTO EN COMPUTADORA
+**25.** Luego de eso, agregarla al **GEMFILE** del proyecto en computadora:
+	<pre>
+		# gem 'capistrano-rails', group: :development
+		gem 'pg', '~> 0.18.4'
+	</pre>
 
-	# gem 'capistrano-rails', group: :development
-	gem 'pg', '~> 0.18.4'
+**26.** Luego de ello, realizar un registro de **gemas**:
+	<pre>
+		bundle install
+	</pre>
 
+**27.** Luego hacer un **commit** para guardarlo en el repositorio.
 
-## LUEGO DE ELLO, REALIZAR UN REGISTRO DE GEMAS
-	
-	bundle install
+**28.** Luego, volver a ejectuar el comando de **capistrano** para hacer el **deploy**:
+	<pre>
+		cap production deploy
+	</pre>
 
-## LUEGO HACER UN COMMIT PARA GUARDARLO EN EL REPOSITORIO
-
-## LUEGO, VOLVER A EJECUTAR EL COMANDO DE CAPISTRANO PARA HACER EL DEPLOY
-
-	cap production deploy
-
-## LUEGO IR AL SERVIDOR Y REINICIAR NGINX PARA CORRER POR PRIMERA VEZ LA APLICACIÓN
-
-	sudo service nginx restart
-
-
-
-
-
-
+**29.** Luego ir al servidor y reiniciar NGINX para correr por primera vez la aplicación:
+	<pre>
+		sudo service nginx restart
+	</pre>
 
 
-#How to deploy RubyonRails project to AWS EC2 using capistrano
-=> Video de Youtube: https://youtu.be/imdrYD4ooIk?t=25m34s
-=> Ver este link: https://www.amberbit.com/blog/2015/11/28/how-to-deploy-rails-on-a-vps/
-
-##PARA REVISAR PROBLEMAS DE NGINX
-	https://www.digitalocean.com/community/questions/service-nginx-restart-fail
-
-##PARA INSTALAR POSTGRES EN EL ORDENADOR CON OS EL CAPITAN
-	https://teamtreehouse.com/community/ruby-on-rails-bundle-fails-cannot-gem-install-pg-not-yet-resolved-need-help
-	http://www.postgresql.org/files/documentation/pdf/9.3/postgresql-9.3-A4.pdf
-	https://gorails.com/setup/ubuntu/14.10
-
-	https://gist.github.com/JamesDullaghan/5941259
-
-##RAKE SECRET
-
-	http://www.jamesbadger.ca/2012/12/18/generate-new-secret-token/
-
-##VIDEOTUTORIAL DEPLOY:
-
-	https://www.youtube.com/watch?v=imdrYD4ooIk
-	https://github.com/rkmmanivannan/rails-ec2-configuration/blob/master/method1/serverconfig
-
-## POSTGRES:
-
-	MacOS => http://postgresapp.com/documentation/
-	      => http://postgresapp.com/documentation/cli-tools.html
-	      => https://launchschool.com/blog/how-to-install-postgresql-on-a-mac
-	      => http://www.postgresql.org/files/documentation/pdf/9.5/postgresql-9.5-A4.pdf
-	      
-	      => http://www.linuxscrew.com/2009/07/03/postgresql-show-tables-show-databases-show-columns/
-	      
-	      => https://chartio.com/resources/tutorials/how-to-start-postgresql-server-on-mac-os-x
-
-## MANEJADOR DE POSTGRES:
-
-	https://eggerapps.at/postico/
-	http://postgresapp.com/
-	https://www.mysql.com/products/workbench/
 
 
+
+### Deploy Rails project in AWS EC2 using capistrano:
+&nbsp;
+* How to deploy RubyonRails project to AWS EC2 using Capistrano: 
+<br/>[YouTube Video](https://youtu.be/imdrYD4ooIk?t=25m34s)
+<br/>[Github Repo](https://github.com/rkmmanivannan/rails-ec2-configuration/blob/master/method1/serverconfig)
+[Amberbit Link](https://www.amberbit.com/blog/2015/11/28/how-to-deploy-rails-on-a-vps/)
+&nbsp;
+* Check misconfigurations on NGINX:
+<br/>[DigitalOcean Link](https://www.digitalocean.com/community/questions/service-nginx-restart-fail)
+<br/>[Postgress Instalation on OS ElCapitan](https://teamtreehouse.com/community/ruby-on-rails-bundle-fails-cannot-gem-install-pg-not-yet-resolved-need-help)
+<br/>[Postgress Manual](http://www.postgresql.org/files/documentation/pdf/9.3/postgresql-9.3-A4.pdf)
+<br/>[Manual Rails Instalation](https://gorails.com/setup/ubuntu/14.10)
+<br/>[Rails Web App instaled on Unicorn]() https://gist.github.com/JamesDullaghan/5941259)
+&nbsp;
+* Create Secret Key:
+<br/>
+[Rake Secret](http://www.jamesbadger.ca/2012/12/18/generate-new-secret-token/)
+
+### POSTGRESQL:
+&nbsp;
+**MacOS:** 
+* http://postgresapp.com/documentation/
+* http://postgresapp.com/documentation/cli-tools.html<br/>
+* https://launchschool.com/blog/how-to-install-postgresql-on-a-mac<br/>
+* http://www.postgresql.org/files/documentation/pdf/9.5/postgresql-9.5-A4.pdf<br/>	      
+* http://www.linuxscrew.com/2009/07/03/postgresql-show-tables-show-databases-show-columns/<br/>
+* https://chartio.com/resources/tutorials/how-to-start-postgresql-server-on-mac-os-x<br/>
+* https://eggerapps.at/postico/<br/>
+* http://postgresapp.com/<br/>
+* https://www.mysql.com/products/workbench/<br/>
