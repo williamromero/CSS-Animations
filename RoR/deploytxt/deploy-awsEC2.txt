@@ -1,0 +1,344 @@
+Last login: Wed Jun 29 15:14:36 on ttys000
+iMac-de-William:~ williamromero$ ls
+Applications		Downloads		Pictures
+Creative Cloud Files	Library			Public
+Desktop			Movies			lib
+Documents		Music
+iMac-de-William:~ williamromero$ cd Desktop
+iMac-de-William:Desktop williamromero$ ls
+AWS
+Captura de pantalla 2016-06-29 a las 7.04.48 p.m..png
+Click Virtual
+Code Examples
+Fundazucar
+Platzi
+Treehouse
+Udemy
+creditshelf
+iMac-de-William:Desktop williamromero$ ssh ubuntu@52.36.26.81
+Welcome to Ubuntu 14.04.4 LTS (GNU/Linux 3.13.0-74-generic x86_64)
+
+ * Documentation:  https://help.ubuntu.com/
+
+  System information as of Tue Jun 28 17:31:27 UTC 2016
+
+  System load:  0.0               Processes:           110
+  Usage of /:   18.9% of 7.74GB   Users logged in:     0
+  Memory usage: 22%               IP address for eth0: 172.31.23.70
+  Swap usage:   0%
+
+  Graph this data and manage this system at:
+    https://landscape.canonical.com/
+
+  Get cloud support with Ubuntu Advantage Cloud Guest:
+    http://www.ubuntu.com/business/services/cloud
+
+40 packages can be updated.
+21 updates are security updates.
+
+
+*** System restart required ***
+Last login: Tue Jun 28 17:31:30 2016 from 200.6.251.235
+ubuntu@ip-172-31-23-70:~$ mysql -u root -p
+Enter password: 
+ERROR 1045 (28000): Access denied for user 'root'@'localhost' (using password: YES)
+ubuntu@ip-172-31-23-70:~$ mysql -u deploy -p
+Enter password: 
+ERROR 1045 (28000): Access denied for user 'deploy'@'localhost' (using password: NO)
+ubuntu@ip-172-31-23-70:~$ sudo su
+root@ip-172-31-23-70:/home/ubuntu# mysql -u root -p
+Enter password: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 48
+Server version: 5.5.49-0ubuntu0.14.04.1 (Ubuntu)
+
+Copyright (c) 2000, 2016, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> create database railsapp
+    -> ;
+Query OK, 1 row affected (0.00 sec)
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| railsapp           |
++--------------------+
+4 rows in set (0.00 sec)
+
+mysql> grant usage on . to deploy@localhost identified by 'production';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'to deploy@localhost identified by 'production'' at line 1
+mysql> grant usage on *.* to deploy@localhost identified by 'production';
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> grant all privileges on railsapp.* to deploy@localhost;              
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> exit
+Bye
+root@ip-172-31-23-70:/home/ubuntu# sudo su deploy
+deploy@ip-172-31-23-70:/home/ubuntu$ pwd
+/home/ubuntu
+deploy@ip-172-31-23-70:/home/ubuntu$ ls
+deploy@ip-172-31-23-70:/home/ubuntu$ cd ..
+deploy@ip-172-31-23-70:/home$ ls
+deploy  ubuntu
+deploy@ip-172-31-23-70:/home$ cd deploy
+deploy@ip-172-31-23-70:~$ ls
+railsapp
+deploy@ip-172-31-23-70:~$ mysql -u deploy -p
+Enter password: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 49
+Server version: 5.5.49-0ubuntu0.14.04.1 (Ubuntu)
+
+Copyright (c) 2000, 2016, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| railsapp           |
++--------------------+
+2 rows in set (0.00 sec)
+
+mysql> use railsapp;
+Database changed
+mysql> ls
+    -> exit
+    -> ^CCtrl-C -- exit!
+Aborted
+deploy@ip-172-31-23-70:~$ pwd
+/home/deploy
+deploy@ip-172-31-23-70:~$ ls
+railsapp
+deploy@ip-172-31-23-70:~$ ls
+railsapp
+deploy@ip-172-31-23-70:~$ ls
+railsapp
+deploy@ip-172-31-23-70:~$ pwd
+/home/deploy
+deploy@ip-172-31-23-70:~$ pwd
+/home/deploy
+deploy@ip-172-31-23-70:~$ quit
+No command 'quit' found, did you mean:
+ Command 'qgit' from package 'qgit' (universe)
+ Command 'quilt' from package 'quilt' (main)
+ Command 'quiz' from package 'bsdgames' (universe)
+ Command 'luit' from package 'x11-utils' (main)
+ Command 'quot' from package 'quota' (main)
+quit: command not found
+deploy@ip-172-31-23-70:~$ exit
+exit
+root@ip-172-31-23-70:/home/ubuntu# exit
+exit
+ubuntu@ip-172-31-23-70:~$ exit
+logout
+Connection to 52.36.26.81 closed.
+iMac-de-William:Desktop williamromero$ ls
+AWS
+Captura de pantalla 2016-06-29 a las 7.04.48 p.m..png
+Click Virtual
+Code Examples
+Fundazucar
+Platzi
+Treehouse
+Udemy
+creditshelf
+iMac-de-William:Desktop williamromero$ cd AWS
+iMac-de-William:AWS williamromero$ ls
+AWS Simple Icons	Icon?			key_fingerprint.txt	ubuntu_fingerprint.txt
+Deploy Rails App.txt	icon.icns		rails-app		webapp.pem
+Deploy Rails.md		icon.png		railsapp		webapp.pkk
+iMac-de-William:AWS williamromero$ ssh ubuntu@52.36.26.81
+Welcome to Ubuntu 14.04.4 LTS (GNU/Linux 3.13.0-74-generic x86_64)
+
+ * Documentation:  https://help.ubuntu.com/
+
+  System information as of Thu Jun 30 03:04:38 UTC 2016
+
+  System load:  0.0               Processes:           120
+  Usage of /:   21.3% of 7.74GB   Users logged in:     1
+  Memory usage: 28%               IP address for eth0: 172.31.23.70
+  Swap usage:   0%
+
+  Graph this data and manage this system at:
+    https://landscape.canonical.com/
+
+  Get cloud support with Ubuntu Advantage Cloud Guest:
+    http://www.ubuntu.com/business/services/cloud
+
+40 packages can be updated.
+21 updates are security updates.
+
+
+*** System restart required ***
+Last login: Thu Jun 30 02:46:18 2016 from 190.149.72.219
+ubuntu@ip-172-31-23-70:~$ su - deploy
+Password: 
+deploy@ip-172-31-23-70:~$ cat ~/.ssh/id_rsa.pub
+ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDoT2TD5R09yBwP1jGWeXoTk4zCgVB5jPt/c5kWXvKAQwGZk+fgWaxaX8dFDmOvF/pEQGHsJuLw6R0PQWNGccf4DWa99gG7MpG5Hxn9C88ODekCLQHszMIwKrfeEuekvsikuY/XxqizAB72y0/TXY3Ju3+5s8wOsMURKskQw0aeBn1T7duxioADCrLRt1MLRJi2OKWG4uxapoGPlWjK42aO1g5VNzzcrjCUKEYVZdDCLXKvKlqGV/cErlwohYLvouSWP8PY7ypdC9bdqJV/yBr1AbuW8TnicbEjD3u7/zBUJF8HZLPJzfG8YLs+mJdZXyIqarvXBWfuQY0FfQ0t0swt deploy@ip-172-31-23-70
+ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCeviKE0PI3yf6evv3sGeDET6W9wFK4O0yFtu/JloOBp0DZBeF4fNRidCsEfJq0l8mCGUSUhJwwsOi+drb13Z0WTsuP5om1OwRSwoB4V0uZvtrOnJOjy8tZiKr9eqMCdQACg66shhh1ToEKwSIeB4G+C0ix/ZFym+dBYt7fa4XlprQLJyj5+x/agUtrQRUu6iTYWrDWyRGjUD2DK0YvfQ1s1kmpPdFM8Nj1v+Hptj/pPJFC6FZ5tmveIeBOmLT+kqu5wPaje4gRJxQXbsSrzL3wg05auCSXXD1oKRapw0QXzV/xmCXSKUlOKh7jVOADydy9RSebzRxHiRAtIVwYPZul williamromero@iMac-de-William.lan
+deploy@ip-172-31-23-70:~$ ssh -T git@github.com
+Warning: Permanently added the RSA host key for IP address '192.30.253.113' to the list of known hosts.
+Hi williamromero! You've successfully authenticated, but GitHub does not provide shell access.
+deploy@ip-172-31-23-70:~$ sudo nano /etc/nginx/sites-available/default
+[sudo] password for deploy: 
+Sorry, try again.
+[sudo] password for deploy: 
+Sorry, try again.
+[sudo] password for deploy: 
+
+[1]+  Stopped                 sudo nano /etc/nginx/sites-available/default
+deploy@ip-172-31-23-70:~$ exit
+logout
+There are stopped jobs.
+deploy@ip-172-31-23-70:~$ exit
+logout
+ubuntu@ip-172-31-23-70:~$ [sudo] password for deploy: 
+sudo: 2 incorrect password attempts
+exit
+logout
+Connection to 52.36.26.81 closed.
+iMac-de-William:AWS williamromero$ ssh ubuntu@52.36.26.81
+Welcome to Ubuntu 14.04.4 LTS (GNU/Linux 3.13.0-74-generic x86_64)
+
+ * Documentation:  https://help.ubuntu.com/
+
+  System information as of Thu Jun 30 05:10:39 UTC 2016
+
+  System load:  0.0               Processes:           111
+  Usage of /:   21.3% of 7.74GB   Users logged in:     0
+  Memory usage: 27%               IP address for eth0: 172.31.23.70
+  Swap usage:   0%
+
+  Graph this data and manage this system at:
+    https://landscape.canonical.com/
+
+  Get cloud support with Ubuntu Advantage Cloud Guest:
+    http://www.ubuntu.com/business/services/cloud
+
+40 packages can be updated.
+21 updates are security updates.
+
+
+*** System restart required ***
+Last login: Thu Jun 30 05:10:39 2016 from 190.149.72.219
+ubuntu@ip-172-31-23-70:~$ sudo nano /etc/nginx/sites-available/default
+ubuntu@ip-172-31-23-70:~$ su - deploy
+Password: 
+deploy@ip-172-31-23-70:~$ ls
+railsapp
+deploy@ip-172-31-23-70:~$ rm -f railsapp
+rm: cannot remove ‘railsapp’: Is a directory
+deploy@ip-172-31-23-70:~$ rm -r railsapp
+rm: remove write-protected regular file ‘railsapp/repo/objects/b9/f3aced8ed2903be741b3b4e6adce6d95e84dbe’? yes
+rm: remove write-protected regular file ‘railsapp/repo/objects/b9/254070f8d1713af8e59573a48eb009c602fe2c’? yes
+rm: remove write-protected regular file ‘railsapp/repo/objects/pack/pack-af3f83692a1ae9a0438d08712c30e42bc638f275.idx’? yes
+rm: remove write-protected regular file ‘railsapp/repo/objects/pack/pack-af3f83692a1ae9a0438d08712c30e42bc638f275.pack’? yes
+rm: remove write-protected regular file ‘railsapp/repo/objects/62/e8a179c0cadf87a2acca8daf3f8ff9cc7c4537’? y
+rm: remove write-protected regular file ‘railsapp/repo/objects/ef/4eba9424f27dc6b8fcc06055b0596aa9bbd49a’? 
+rm: remove write-protected regular file ‘railsapp/repo/objects/ef/ef7d420e7bb7ff1c70aa46286d57dfd2fda6a2’? yy
+rm: remove write-protected regular file ‘railsapp/repo/objects/ef/be26376bdd91fd6262e9ce1ed36a1ec2845842’? y
+rm: cannot remove ‘railsapp/repo/objects/ef’: Directory not empty
+rm: remove write-protected regular file ‘railsapp/repo/objects/fd/16b6e9b3f4a1ff09d7c70f5c92b54113cabd9d’? y
+rm: remove write-protected regular file ‘railsapp/repo/objects/2d/432c6039bc94a8a16dff96799b6012798f786c’? y
+rm: remove write-protected regular file ‘railsapp/repo/objects/32/f206facbed2d122c1311e9644c06b864355e01’? y
+rm: remove write-protected regular file ‘railsapp/repo/objects/08/b4e3dce508207cac1441c598e768acc6a3a806’? y
+rm: remove write-protected regular file ‘railsapp/repo/objects/30/73de9da0290ee73a81dda065a25c187b323c7d’? y
+rm: remove write-protected regular file ‘railsapp/repo/objects/12/9fb9b35ef6acbf2b0e669889a2b14cfc9b4624’? y
+rm: remove write-protected regular file ‘railsapp/repo/objects/c8/215ac81279bec3fd786aa99ddadc842460dcce’? y
+rm: remove write-protected regular file ‘railsapp/repo/objects/e8/eeb6b6fdf641bfed62667e774536b564223b64’? y
+rm: remove write-protected regular file ‘railsapp/repo/objects/da/131b6d32ce7366a34d19b6d479a08678e9f63c’? y
+rm: remove write-protected regular file ‘railsapp/repo/objects/da/c6031e5a4a2371e383d9f8bafa60f80faba280’? y
+rm: remove write-protected regular file ‘railsapp/repo/objects/c6/18eb8350d45777cd93f639ebd591b07ec978db’? y
+rm: remove write-protected regular file ‘railsapp/repo/objects/ec/562d2ba47b0aa95f3b4e4e832b996ca6647bb4’? y
+rm: remove write-protected regular file ‘railsapp/repo/objects/3d/6de67101ef20ad1a02ba7971fff173dd512f80’? y
+rm: remove write-protected regular file ‘railsapp/repo/objects/cb/18eaa57c1e63c45ad88bad97f8210d70e1ec37’? y
+rm: remove write-protected regular file ‘railsapp/repo/objects/6e/426a0c7995af734676e6d51adaf00148c78551’? y
+rm: remove write-protected regular file ‘railsapp/repo/objects/3f/514e60dd259dea759cc94852596278cba9943f’? y
+rm: remove write-protected regular file ‘railsapp/repo/objects/2c/0ec2edbc5037ee04b898baa8ddfe513180afc3’? y
+rm: remove write-protected regular file ‘railsapp/repo/objects/03/ca90343154a2d25787d33e57ac8fc55ba27e59’? y
+rm: remove write-protected regular file ‘railsapp/repo/objects/52/ab92ec559b53179e2ba7581dfa7a1201c1153a’? y
+rm: remove write-protected regular file ‘railsapp/repo/objects/9d/ea1cf4be73fa627e74abaa3f7ef7185911207f’? y
+rm: remove write-protected regular file ‘railsapp/repo/objects/f2/9c80e20af8a7c982816059463b7edff6b3e744’? y
+rm: remove write-protected regular file ‘railsapp/repo/objects/f2/71288c77aeb23db59ebc00b737a586e7d83f9a’? y
+rm: remove write-protected regular file ‘railsapp/repo/objects/2e/2a83aa85ace046998e6db70365924cb95cec22’? y
+rm: remove write-protected regular file ‘railsapp/repo/objects/6c/c462f9b95fbc098c062d7ebe3a7a06d223d1cb’? y
+rm: remove write-protected regular file ‘railsapp/repo/objects/10/a93ddf6ace345a26f0b82f0e0b4d1debb4c8d3’? y
+rm: remove write-protected regular file ‘railsapp/repo/objects/b1/51ab162b60e2a403de0541cbd430c4992afe2c’? y
+rm: remove write-protected regular file ‘railsapp/repo/objects/a2/de2c8711be62095e497408d5dd0c9be263adc3’? y
+rm: remove write-protected regular file ‘railsapp/repo/objects/3e/f768e6758560e7b626a31d585f2fafcf93910d’? y
+rm: remove write-protected regular file ‘railsapp/repo/objects/25/0318b4cbd940804df63de903d7d4872bf5d4f6’? y
+rm: remove write-protected regular file ‘railsapp/repo/objects/0a/b0e507a69d789cc3eefeec3bdf9fefe7991a5c’? y
+rm: remove write-protected regular file ‘railsapp/repo/objects/85/0581390cb6bd2bb9e11f20c018f03dc75ea4ce’? y
+rm: remove write-protected regular file ‘railsapp/repo/objects/f0/d95cca4c06c597b99d1cca46bef5441fa9d0a2’? y
+rm: remove write-protected regular file ‘railsapp/repo/objects/48/c52e2dc8c61eba640aac812b4ca540121a79b5’? y
+rm: remove write-protected regular file ‘railsapp/repo/objects/56/dda09d6efe385158e91624befb8973367283cb’? y
+rm: remove write-protected regular file ‘railsapp/repo/objects/93/917ac23f91f1558cd1a6ffd6bb44d2a684da19’? y
+rm: remove write-protected regular file ‘railsapp/repo/objects/d0/96f86c723556eb1df242c988b86ff050c2051d’? y
+rm: remove write-protected regular file ‘railsapp/repo/objects/7f/87b9cb1687e403f842ab357457ca7ace36fabc’? y
+rm: remove write-protected regular file ‘railsapp/repo/objects/7f/fd0bb710c5c869c85dc4039192b6c658dcb871’? y
+rm: remove write-protected regular file ‘railsapp/repo/objects/7f/74020bdf6e327c4a29aa721830c12d7bd2aac2’? y
+rm: remove write-protected regular file ‘railsapp/repo/objects/80/08613c450a5422752119db79036510850180e5’? y
+rm: remove write-protected regular file ‘railsapp/repo/objects/59/565c5022236a72628b853530b57aa6ea74e620’? 
+rm: cannot remove ‘railsapp/repo/objects/59’: Directory not empty
+rm: remove write-protected regular file ‘railsapp/repo/objects/b4/6648ddef7d0bec9ac90cfa63c6894d65cf5d33’? l^Z
+[1]+  Stopped                 rm -r railsapp
+deploy@ip-172-31-23-70:~$ ls
+railsapp
+deploy@ip-172-31-23-70:~$ rm -rf railsapp
+deploy@ip-172-31-23-70:~$ ls
+deploy@ip-172-31-23-70:~$ mkdir railsapp
+deploy@ip-172-31-23-70:~$ mkdir -p railsapp/shared/config
+deploy@ip-172-31-23-70:~$ ls
+railsapp
+deploy@ip-172-31-23-70:~$ cd railsapp
+deploy@ip-172-31-23-70:~/railsapp$ ls
+shared
+deploy@ip-172-31-23-70:~/railsapp$ ls
+shared
+deploy@ip-172-31-23-70:~/railsapp$ cd shared
+deploy@ip-172-31-23-70:~/railsapp/shared$ ls
+config
+deploy@ip-172-31-23-70:~/railsapp/shared$ cd config
+deploy@ip-172-31-23-70:~/railsapp/shared/config$ cd ..
+deploy@ip-172-31-23-70:~/railsapp/shared$ cd config
+deploy@ip-172-31-23-70:~/railsapp/shared/config$ ls
+deploy@ip-172-31-23-70:~/railsapp/shared/config$ nano deploy.rb
+deploy@ip-172-31-23-70:~/railsapp/shared/config$ nano database.yml
+deploy@ip-172-31-23-70:~/railsapp/shared/config$ ls
+database.yml  deploy.rb
+deploy@ip-172-31-23-70:~/railsapp/shared/config$ nano database.yml
+deploy@ip-172-31-23-70:~/railsapp/shared/config$ ls
+database.yml  deploy.rb
+deploy@ip-172-31-23-70:~/railsapp/shared/config$ nano application.yml
+deploy@ip-172-31-23-70:~/railsapp/shared/config$ ls
+application.yml  database.yml  deploy.rb
+deploy@ip-172-31-23-70:~/railsapp/shared/config$ ls
+application.yml  database.yml  deploy.rb
+deploy@ip-172-31-23-70:~/railsapp/shared/config$ nano application.yml
+deploy@ip-172-31-23-70:~/railsapp/shared/config$ nano deploy.rb
+deploy@ip-172-31-23-70:~/railsapp/shared/config$ nano database.yml
+deploy@ip-172-31-23-70:~/railsapp/shared/config$ nano database.yml
+deploy@ip-172-31-23-70:~/railsapp/shared/config$ nano database.yml
+deploy@ip-172-31-23-70:~/railsapp/shared/config$ sudo service nginx restart
+[sudo] password for deploy: 
+ * Restarting nginx nginx                                                                                                                                                        [ OK ] 
+deploy@ip-172-31-23-70:~/railsapp/shared/config$ 
