@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Title Page</title>
+		<style>
+			* { float: none; margin: 0 auto; padding: 0; }
+			body { background-color: #eee; font-family: 'Helvetica Neue'; height: 100%; margin: 0 auto; padding: 0; width: 100%;  }
+			.principal-carousel-text { background-color: #666; display: flex; height: 100px; overflow: hidden; margin: 0 auto; }
+
+			.principal-carousel-quote-01,
+			.principal-carousel-quote-02,
+			.principal-carousel-quote-03,
+			.principal-carousel-quote-04,
+			.principal-carousel-quote-05 {
+				bottom: 0;
+				color: #FFF;
+				position: absolute;
+				transform: translateY(80px);
+				text-align: center;
+			}
+
+			.principal-carousel-quote-01 { animation: movelem 15s ease-in infinite normal; animation-delay: 0s; cursor: pointer; }
+
+			@keyframes movelem {
+				0% { transform: translateY(80px); }
+				5% { transform: translateY(0px); }
+				10% { transform: translateY(0px); }
+				15% { transform: translateY(0px); }
+				20% { transform: translateY(80px); }
+			}
+
+			.principal-carousel-quote-02 { animation: movelem-two 15s ease-in infinite normal; animation-delay: 3s; cursor: pointer; }
+
+			@keyframes movelem-two {
+				20% { transform: translateY(80px); }
+				25% { transform: translateY(0px); }
+				30% { transform: translateY(0px); }
+				35% { transform: translateY(0px); }
+				40% { transform: translateY(80px); }
+			}
+
+			.principal-carousel-quote-03 { animation: movelem-three 15s ease-in infinite normal; animation-delay: 6s; cursor: pointer; }
+
+			@keyframes movelem-three {
+				40% { transform: translateY(80px); }
+				45% { transform: translateY(0px); }
+				50% { transform: translateY(0px); }
+				55% { transform: translateY(0px); }
+				60% { transform: translateY(80px); }
+			}
+
+			.principal-carousel-quote-04 { animation: movelem-four 15s ease-in infinite normal; animation-delay: 9s; cursor: pointer; }
+
+			@keyframes movelem-four {
+				60% { transform: translateY(80px); }
+				65% { transform: translateY(0px); }
+				70% { transform: translateY(0px); }
+				75% { transform: translateY(0px); }
+				80% { transform: translateY(80px); }
+			}
+
+			.principal-carousel-quote-05 { animation: movelem-five 15s ease-in infinite normal; animation-delay: 12s; cursor: pointer; }
+
+			@keyframes movelem-five {
+				80% { transform: translateY(80px); }
+				85% { transform: translateY(0px); }
+				90% { transform: translateY(0px); }
+				95% { transform: translateY(0px); }
+				100% { transform: translateY(80px); }
+			}
+
+		</style>
+		</script>
+		<link rel="stylesheet" href="https://cdn.rawgit.com/twbs/bootstrap/v4-dev/dist/css/bootstrap.css">
+	</head>
+	<body>
+		<div class="principal-carousel-text container-fluid">
+			<div class="principal-carousel-content col-md-8">
+				<p class="principal-carousel-quote-01">
+					„Ich setze mit meinem Unternehmen erneut auf creditshelf, weil wir dort fair geratet und schnell finanziert werden.“
+					<label>Surname Company</label>
+				</p>
+				<p class="principal-carousel-quote-02">„With creditshelf we have found a reliable partner who offers us an additional funding channel through its broad network of investors.“
+					<label>Joachim Sorg, CFO, Nanofocus Ltd.</label>
+				</p>
+				<p class="principal-carousel-quote-03">„Because working with creditshelf was unbureaucratic, it was possible for us to drive our development project faster.“
+					<label>Werner Schmitz, Ritter Concept Ltd.</label>
+				</p>
+				<p class="principal-carousel-quote-04">„With creditshelf I was able to show my client a quick and easy alternative, a real benefit. For both of us!“
+					<label>Hans Gemünd, Beratung für Management und Logistik</label>
+				</p>
+				<p class="principal-carousel-quote-05">„Sehr gut, sehr professionell, klar kompetent und schnell. Wir würden Auftragsfinanzierun-gen und Saisonvorräte jederzeit wieder über creditshelf finanzieren.“
+					<label>Eduard Grafe, DFP Falkenthal & Co GmbH</label>
+				</p>
+			</div>
+		</div>
+
+<!-- 		<h1 class="text-xs-center">Hello World</h1> -->
+
+		<!-- jQuery
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+		<!-- Bootstrap JavaScript -->
+		<!-- <script src="https://cdn.rawgit.com/twbs/bootstrap/v4-dev/dist/js/bootstrap.js"></script> -->
+	</body>
+</html>
