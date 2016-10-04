@@ -1,9 +1,9 @@
 ## RAILS DEPLOY 
 
 **1.** Crear aplicación de Rails [Terminal]:
-    <pre>	
-      rails new railsapp
-    </pre>
+<pre>
+  rails new railsapp
+</pre>
 	
 **2.** Instalar las siguientes gemas [Terminal]:
    	<pre>
